@@ -3,8 +3,8 @@
 
 class Message {
 private:
-	MyString from = " ";
-	MyString content = " ";
+	MyString from = "Unknown";
+	MyString content = "Empty";
 
 public:
 	Message(const MyString& from, const MyString& content);
