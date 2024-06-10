@@ -7,14 +7,13 @@ namespace Constants{
 }
 
 class User {
-private:
+protected:
 	MyString name="Unknown";
 	MyString egn="N/A";
 	size_t age=0;
 	MyString role="Unknown";
 	MyString password="N/A";
 
-protected:
 	bool validateAge(uint16_t age) const;
 
 public:
