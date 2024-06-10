@@ -7,7 +7,7 @@ bool User::validateAge(uint16_t age) const{
 	return true;
 }
 
-User::User(const MyString& name, const MyString& egn, size_t age, const MyString& role, const MyString& password):name(name),egn(egn),role(role),password(password){
+User::User(const MyString& firstName,const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password):firstName(firstName),secondName(secondName), egn(egn), role(role), password(password) {
 	if (validateAge(age)) {
 		this->age = age;
 	}
@@ -17,8 +17,12 @@ User::User(const MyString& name, const MyString& egn, size_t age, const MyString
 	}
 }
 
-const MyString& User::getName() const {
-	return name;
+const MyString& User::getFirstName() const {
+	return firstName;
+}
+
+const MyString& User::getSecondName() const {
+	return secondName;
 }
 
 const MyString& User::getEgn() const {

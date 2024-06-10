@@ -8,7 +8,8 @@ namespace Constants{
 
 class User {
 protected:
-	MyString name="Unknown";
+	MyString firstName="Unknown";
+	MyString secondName = "Unknown";
 	MyString egn="N/A";
 	size_t age=0;
 	MyString role="Unknown";
@@ -18,9 +19,10 @@ protected:
 
 public:
 	User() = default;
-	User(const MyString& name, const MyString& egn, size_t age, const MyString& role, const MyString& password);
+	User(const MyString& firstName,const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password);
 
-	const MyString& getName() const;
+	const MyString& getFirstName() const;
+	const MyString& getSecondName() const;
 	const MyString& getEgn() const;
 	size_t getAge() const;
 	const MyString& getRole() const;
