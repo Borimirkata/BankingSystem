@@ -1,5 +1,10 @@
 #include "Message.h"
 
+Message::Message(const MyString& from, const MyString& content) {
+	setFrom(from);
+	setContent(content);
+}
+
 void Message::setFrom(const MyString& from) {
 	this->from = from;
 }
