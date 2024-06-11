@@ -30,9 +30,9 @@ void Client::open(const MyString& bankName) {
 	if (index == -1) {
 		throw std::exception("There is no bank with such name!");
 	}
-	Bank currentBank = banks[index];
-	MyString string = "Open task";
-	currentBank.pushTask(string);
+	currentB = &banks[index];
+	MyString role = "Open";
+	currentB->addRequests(role, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
 }
 
 void Client::close(const MyString& bankName,size_t accountNumber) {
@@ -40,10 +40,10 @@ void Client::close(const MyString& bankName,size_t accountNumber) {
 	if (index == -1) {
 		throw std::exception("There is no bank with such name!");
 	}
-	Bank currentBank = banks[index];
-	//create a function that converts number into string and the oposite!
-	MyString string = "Close task";
-	currentBank.pushTask(string);
+	currentB = &banks[index];
+
+	MyString role = "Close";
+	currentB->addRequests(role, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
 }
 
 void Client::change(const MyString& newBankName, const MyString& currentBankName, size_t accountNumber) {
@@ -52,10 +52,10 @@ void Client::change(const MyString& newBankName, const MyString& currentBankName
 	if (indexCurrent == -1 || indexNew == -1) {
 		throw std::exception("Incorrect bank names!");
 	}
-	Bank currentBank = banks[indexCurrent];
+	currentB = &banks[indexCurrent];
 
-	MyString string = "Change task";
-	currentBank.pushTask(string);
+	MyString role = "Change";
+	currentB->addRequests(role, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
 }
 
 void Client::list(const MyString& bankName) const {
@@ -64,8 +64,9 @@ void Client::list(const MyString& bankName) const {
 		throw std::exception("bank name is incorrect!");
 	}
 
-	Bank currentBank = banks[index];
-	currentBank.printAccounts();
+	banks[index].printAccounts();
+	
+	
 }
 
 void Client::messages() const {
@@ -114,5 +115,7 @@ int main() {
 	c1.pushBank(b);
 	c1.messages();
 	c1.open("Fibank");
+	std::cout << "6";
+	
 }
 

@@ -36,6 +36,9 @@
     <ClInclude Include="Bank.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Request.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyString.cpp">
@@ -54,6 +57,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bank.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Request.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -16,6 +16,8 @@ public:
 	size_t getAccountNumber() const;
 	double getBalance() const;
 
+	void printAccount() const;
+
 	void setAccountNumber(size_t accountNumber);
 	void setBalance(double balance);
 

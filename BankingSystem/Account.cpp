@@ -26,3 +26,7 @@ void Account::setBalance(double balance) {
 	}
 	this->balance = balance;
 }
+
+void Account::printAccount() const {
+	std::cout << "* " << accountNumber << std::endl;
+}

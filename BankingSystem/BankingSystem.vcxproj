@@ -133,6 +133,7 @@
     <ClInclude Include="Message.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.hpp" />
+    <ClInclude Include="Request.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +142,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MyString.cpp" />
+    <ClCompile Include="Request.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

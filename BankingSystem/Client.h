@@ -11,6 +11,8 @@ private:
 	MyString address = "Unknown";
 	MyVector<Message> message;
 	MyVector<Bank> banks;
+	Bank* currentB = nullptr;
+
 	int getBankIndex(const MyString& bankName) const;
 
 public:

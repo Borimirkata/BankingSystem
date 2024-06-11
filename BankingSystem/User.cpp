@@ -1,20 +1,10 @@
 #include "User.h"
 
-bool User::validateAge(uint16_t age) const{
-	if (age<Constants::MIN_AGE || age>Constants::MAX_AGE) {
-		return false;
-	}
-	return true;
-}
-
 User::User(const MyString& firstName,const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password):firstName(firstName),secondName(secondName), egn(egn), role(role), password(password) {
-	if (validateAge(age)) {
-		this->age = age;
+	if (age<MIN_AGE || age>MAX_AGE) {
+		throw std::exception("Incorrect age");
 	}
-	else {
-		std::cout << "Incorrect age range.The current age will be 18." << std::endl;
-		this->age = Constants::MIN_AGE;
-	}
+	this->age = age;
 }
 
 const MyString& User::getFirstName() const {

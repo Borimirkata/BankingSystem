@@ -1,7 +1,7 @@
 #pragma once
 #include "MyString.h"
 
-namespace Constants{
+namespace {
 	const size_t MIN_AGE = 18;
 	const size_t MAX_AGE = 100;
 }
@@ -14,8 +14,6 @@ protected:
 	size_t age=0;
 	MyString role="Unknown";
 	MyString password="N/A";
-
-	bool validateAge(uint16_t age) const;
 
 public:
 	User() = default;
