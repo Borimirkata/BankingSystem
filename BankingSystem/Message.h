@@ -7,6 +7,7 @@ private:
 	MyString content = "Empty";
 
 public:
+	Message() = default;
 	Message(const MyString& from, const MyString& content);
 
 	const MyString& getFrom() const;

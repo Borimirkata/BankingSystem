@@ -7,19 +7,15 @@ namespace {
 
 class Account {
 private:
-	MyString bankName="Unknown";
 	size_t accountNumber=0;
 	double balance = 0;
 
 public:
 	Account() = default;
-	Account(const MyString& bankName, size_t accountNumber, double balance);
-
-	const MyString& getBankName() const;
+	Account(size_t accountNumber, double balance);
 	size_t getAccountNumber() const;
 	double getBalance() const;
 
-	void setBankName(const MyString& bankName);
 	void setAccountNumber(size_t accountNumber);
 	void setBalance(double balance);
 

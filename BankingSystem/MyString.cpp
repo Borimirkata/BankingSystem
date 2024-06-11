@@ -37,7 +37,7 @@ MyString::MyString() : MyString(1)
 	_data[0] = '\0';
 }
 
-MyString::MyString(const char* data) : MyString(strlen(data) + 1)
+MyString::MyString(const char* data) : MyString(strlen(data)+1)
 {
 	strcpy(_data, data);
 }

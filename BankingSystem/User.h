@@ -31,7 +31,7 @@ public:
 
 	virtual void help() const = 0;
 	virtual void whoami() const = 0;
-	virtual void exit() = 0;
+	//virtual void exit() = 0;
 
 	virtual ~User() = default;
 };
