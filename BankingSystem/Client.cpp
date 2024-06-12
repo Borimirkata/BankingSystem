@@ -107,16 +107,6 @@ void Client::addMessage(const Message& mess) {
 	message.push_back(mess);
 }
 
-//void Client::getCurrentBank(const MyString& bankName, Bank*& _currentB) {
-//	int index = getBankIndex(bankName);
-//
-//	if (index == -1) {
-//		throw std::exception("No such request exists");
-//	}
-//
-//	_currentB = &banks[index];
-//}
-
 int main() {
 	Client c1("Borimir", "Aleksiev", "*.............*", 19, "Client", "*","Vidima");
 	Bank b("Fibank");

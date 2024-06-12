@@ -18,6 +18,7 @@ private:
 
 	Bank* currentB = nullptr;
 
+
 	int getBankIndex(const MyString& bankName) const;
 
 public:
@@ -27,8 +28,6 @@ public:
 
 	void addBank(const MyString& bankName);
 	void addMessage(const Message& message);
-
-	//void getCurrentBank(const MyString& bankName, Bank*& _currentB);
 
 	void check_avl(const MyString& bankName, size_t accountNumber) const;
 	void open(const MyString& bankName);
