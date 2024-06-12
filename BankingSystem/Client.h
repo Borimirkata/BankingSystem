@@ -1,9 +1,13 @@
 #pragma once
 #include "User.h"
-//#include "MyVector.hpp"
 #include "Message.h"
-//#include "Account.h"
 #include "Bank.h"
+
+namespace {
+	const MyString& type1 = "Open";
+	const MyString& type2 = "Close";
+	const MyString& type3 = "Change";
+}
 
 class Client:public User{
 private:
@@ -11,6 +15,7 @@ private:
 	MyString address = "Unknown";
 	MyVector<Message> message;
 	MyVector<Bank> banks;
+
 	Bank* currentB = nullptr;
 
 	int getBankIndex(const MyString& bankName) const;
@@ -20,8 +25,10 @@ public:
 	Client(const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password, const MyString& address);
 	
 
-	void pushBank(const Bank& bank);
-	void pushMessage(const Message& message);
+	void addBank(const MyString& bankName);
+	void addMessage(const Message& message);
+
+	//void getCurrentBank(const MyString& bankName, Bank*& _currentB);
 
 	void check_avl(const MyString& bankName, size_t accountNumber) const;
 	void open(const MyString& bankName);

@@ -32,7 +32,7 @@ void Client::open(const MyString& bankName) {
 	}
 	currentB = &banks[index];
 	MyString role = "Open";
-	currentB->addRequests(role, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
+	currentB->addRequests(type1, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
 }
 
 void Client::close(const MyString& bankName,size_t accountNumber) {
@@ -42,8 +42,7 @@ void Client::close(const MyString& bankName,size_t accountNumber) {
 	}
 	currentB = &banks[index];
 
-	MyString role = "Close";
-	currentB->addRequests(role, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
+	currentB->addRequests(type2, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
 }
 
 void Client::change(const MyString& newBankName, const MyString& currentBankName, size_t accountNumber) {
@@ -54,8 +53,7 @@ void Client::change(const MyString& newBankName, const MyString& currentBankName
 	}
 	currentB = &banks[indexCurrent];
 
-	MyString role = "Change";
-	currentB->addRequests(role, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
+	currentB->addRequests(type3, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
 }
 
 void Client::list(const MyString& bankName) const {
@@ -101,21 +99,30 @@ void Client::help() const {
 	std::cout << "-exit " << std::endl;
 }
 
-void Client::pushBank(const Bank& bank) {
-	banks.push_back(bank);
+void Client::addBank(const MyString& bankName) {
+	banks.push_back(Bank(bankName));
 }
 
-void Client::pushMessage(const Message& mess) {
+void Client::addMessage(const Message& mess) {
 	message.push_back(mess);
 }
+
+//void Client::getCurrentBank(const MyString& bankName, Bank*& _currentB) {
+//	int index = getBankIndex(bankName);
+//
+//	if (index == -1) {
+//		throw std::exception("No such request exists");
+//	}
+//
+//	_currentB = &banks[index];
+//}
 
 int main() {
 	Client c1("Borimir", "Aleksiev", "*.............*", 19, "Client", "*","Vidima");
 	Bank b("Fibank");
-	c1.pushBank(b);
+	c1.addBank("Fibank");
 	c1.messages();
 	c1.open("Fibank");
-	std::cout << "6";
 	
 }
 

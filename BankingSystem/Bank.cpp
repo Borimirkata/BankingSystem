@@ -12,11 +12,11 @@ int Bank::getAccountIdx(size_t accountNumber) const{
 	return -1;
 }
 
-int Bank::getRequestIdx(const MyString& first, const MyString& second,const MyString& egn,size_t age) {
+int Bank::getRequestIdx(const MyString& egn) const{
 	size_t count = requests.getSize();
 
 	for (size_t i = 0; i < count; i++) {
-		if ((requests[i].getFirstName()==first) && (requests[i].getSecondName() == second) && (requests[i].getEgn()==egn) && (requests[i].getAge()==age)) {
+		if ((requests[i].getEgn()==egn)) {
 			return i;
 		}
 	}
@@ -60,24 +60,24 @@ void Bank::addRequests(const MyString& role, const MyString& firstName, const My
 	requests.push_back(Request(role, firstName, secondName, egn, age));
 }
 
-void Bank::getCurrentAccount(size_t accountNumber, Account*& currentAcc) {
+void Bank::getCurrentAccount(size_t accountNumber, Account*& _currentAcc) {
 	int index = getAccountIdx(accountNumber);
 	
 	if (index == -1) {
 		throw std::exception("No such account exists");
 	}
 
-	currentAcc = &accounts[index];
+	_currentAcc = &accounts[index];
 }
 
-void Bank::getCurrentRequest(const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age, Request*& currentReq) {
-	int index = getRequestIdx(firstName, secondName, egn, age);
+void Bank::getCurrentRequest(const MyString& egn,Request*& _currentReq) {
+	int index = getRequestIdx(egn);
 	
 	if (index == -1) {
 		throw std::exception("No such request exists");
 	}
 
-	currentReq = &requests[index];
+	_currentReq = &requests[index];
 }
 
 void Bank::printAccounts() const {

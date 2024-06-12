@@ -12,6 +12,7 @@ private:
 	MyString firstName = "Unknown";
 	MyString secondName = "Unknown";
 	MyString egn = "Unknown";
+
 	size_t age=0;
 
 public:
@@ -23,6 +24,8 @@ public:
 	const MyString& getSecondName() const;
 	const MyString& getEgn() const;
 	size_t getAge() const;
+
+	void printRequest() const;
 
 	~Request() = default;
 };

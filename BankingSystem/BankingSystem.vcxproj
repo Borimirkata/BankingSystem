@@ -130,6 +130,7 @@
     <ClInclude Include="Account.h" />
     <ClInclude Include="Bank.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="Employee.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.hpp" />

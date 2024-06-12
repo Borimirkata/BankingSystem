@@ -26,3 +26,7 @@ const MyString& Request::getEgn() const {
 size_t Request::getAge() const {
 	return age;
 }
+
+void Request::printRequest() const {
+	std::cout << getType() << " - " << getFirstName() << " " << getSecondName() << "want to " << getType() << " account";
+}
