@@ -5,14 +5,14 @@ int Client::getBankIndex(const MyString& bankName) const {
 	size_t banksCount = banks.getSize();
 
 	for (size_t i = 0; i < banksCount; i++) {
-		if ((banks[i].getBankName() == bankName)) {
+		if ((banks[i]->getBankName() == bankName)) {
 			return i;
 		}
 	}
 	return -1;
 }
 
-Client::Client(const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password, const MyString& address):User(firstName,secondName,egn,age,role,password){
+Client::Client(const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password, const MyString& address) :User(firstName, secondName, egn, age, role, password) {
 	this->address = address;
 }
 
@@ -21,28 +21,25 @@ void Client::check_avl(const MyString& bankName, size_t accountNumber) const {
 	if (index == -1) {
 		throw std::exception("There is no bank with such name!");
 	}
-	Bank currentBank = banks[index];
-	std::cout << "Balance: " << currentBank.getAccountBalance(accountNumber) << " $" << std::endl;
+	Bank* currentBank = banks[index];
+	std::cout << "Balance: " << currentBank->getAccountBalance(accountNumber) << " $" << std::endl;
 }
 
 void Client::open(const MyString& bankName) {
-	int index = getBankIndex(bankName);
-	if (index == -1) {
-		throw std::exception("There is no bank with such name!");
-	}
-	currentB = &banks[index];
-	MyString role = "Open";
-	currentB->addRequests(type1, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
+
+	Bank* currentB = BankingSystem::get_bank_by_name(bankName);
+
+	currentB->sendRequestToEmployee(type1, this);
 }
 
-void Client::close(const MyString& bankName,size_t accountNumber) {
+void Client::close(const MyString& bankName, size_t accountNumber) {
 	int index = getBankIndex(bankName);
 	if (index == -1) {
 		throw std::exception("There is no bank with such name!");
 	}
-	currentB = &banks[index];
+	Bank* currentB = banks[index];
 
-	currentB->addRequests(type2, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
+	currentB->sendRequestToEmployee(type2, this);
 }
 
 void Client::change(const MyString& newBankName, const MyString& currentBankName, size_t accountNumber) {
@@ -51,9 +48,9 @@ void Client::change(const MyString& newBankName, const MyString& currentBankName
 	if (indexCurrent == -1 || indexNew == -1) {
 		throw std::exception("Incorrect bank names!");
 	}
-	currentB = &banks[indexCurrent];
+	Bank* currentB = banks[indexCurrent];
 
-	currentB->addRequests(type3, Client::getFirstName(), Client::getSecondName(), Client::getEgn(), Client::getAge());
+	currentB->sendRequestToEmployee(type3, this);
 }
 
 void Client::list(const MyString& bankName) const {
@@ -62,9 +59,9 @@ void Client::list(const MyString& bankName) const {
 		throw std::exception("bank name is incorrect!");
 	}
 
-	banks[index].printAccounts();
-	
-	
+	banks[index]->printAccounts();
+
+
 }
 
 void Client::messages() const {
@@ -74,7 +71,7 @@ void Client::messages() const {
 
 	size_t messagesSize = message.getSize();
 	for (size_t i = 0; i < messagesSize; i++) {
-		std::cout << "[" << (i + 1) << "] " << message[i].getContent() <<"! Message from:"<<message[i].getFrom()<< std::endl;
+		std::cout << "[" << (i + 1) << "] " << message[i].getContent() << "! Message from:" << message[i].getFrom() << std::endl;
 	}
 }
 
@@ -100,19 +97,27 @@ void Client::help() const {
 }
 
 void Client::addBank(const MyString& bankName) {
-	banks.push_back(Bank(bankName));
+	banks.push_back(BankingSystem::get_bank_by_name(bankName));
 }
 
 void Client::addMessage(const Message& mess) {
 	message.push_back(mess);
+
+	// mess.content approve open 
+	// mess.content approve close
+	// mess.concent approve change
+	this->addBank(mess.getBankName());
+
 }
 
 int main() {
-	Client c1("Borimir", "Aleksiev", "*.............*", 19, "Client", "*","Vidima");
-	Bank b("Fibank");
-	c1.addBank("Fibank");
+	Client c1("Borimir", "Aleksiev", "*.............*", 19, "Client", "*", "Vidima");
+
+	BankingSystem::create_bank("Fibank");
+	Employee e1("asd", "dsa", "*....*", 20, "Employee", "*", "Fibank");
+
 	c1.messages();
 	c1.open("Fibank");
-	
+
 }
 

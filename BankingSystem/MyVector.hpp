@@ -1,6 +1,5 @@
 #pragma once
 
-#pragma once
 #include <iostream>
 namespace
 {
@@ -172,7 +171,7 @@ template <typename T>
 void MyVector<T>::pop_back()
 {
 	if (empty()) {
-		throw "Empty vector";
+		throw std::exception("Empty vector");
 	}
 
 	size--;
