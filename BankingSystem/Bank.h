@@ -3,14 +3,22 @@
 #include "Account.h"
 #include "Request.h"
 #include "Employee.h"
+#include "Message.h"
 
+class Account;
+class Employee;
 
 class Bank {
 private:
 	MyString bankName = "Unknown";
 	MyVector<Account> accounts;
 	MyVector<Request> requests;
-	MyVector<Employee> employees;
+	MyVector<Client*> clients;
+	//new stuff below this message
+
+	MyVector<Employee*> employees;
+	int getEmployeeIdx(const MyString& egn) const;
+	int getEmployeeWithLeastTasks() const;
 
 	int getAccountIdx(size_t accountNumber) const;
 	int getRequestIdx(const MyString& egn) const;
@@ -20,14 +28,23 @@ public:
 	Bank(const MyString& bankName);
 
 	double getAccountBalance(size_t number);
-	void addAccount(size_t accountNumber,double balance);
-	void addRequests(const MyString& role,const MyString& firstName,const MyString& secondName,const MyString& egn,size_t age);
 
-	void getCurrentAccount(size_t accountNumber, Account*& currentAcc);
-	void getCurrentRequest(const MyString& egn, Request*& currentReq);
+	void sendRequestToEmployee(const MyString& role, Client* client);
+	void sendAnswerToClient(const Message& message, Client* client);
 
+	void getCurrentAccount(size_t accountNumber, Account& currentAcc);
+	void getCurrentRequest(const MyString& egn, Request& currentReq);
+
+	void addAccount(size_t accountNumber, double balance, Client* client);
 	void printAccounts() const;
-	
+
 	void setBankName(const MyString& bankName);
+
+	MyVector<Employee*>& getEmployees();
+
+
+	Employee* getEmployeeByIndex(int idx);
+	Request* getRequestByIndex(int task_id);
+
 	const MyString& getBankName() const;
 };

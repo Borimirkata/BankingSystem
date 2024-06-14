@@ -1,8 +1,9 @@
 #include "Account.h"
 
-Account::Account(size_t accountNumber, double balance) {
+Account::Account(size_t accountNumber, double balance, Client* client) {
 	setAccountNumber(accountNumber);
 	setBalance(balance);
+	this->client = client;
 }
 
 size_t Account::getAccountNumber() const {

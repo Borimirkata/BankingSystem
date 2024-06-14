@@ -1,23 +1,23 @@
 #pragma once
 #include "MyString.h"
+#include "Client.h"
+
+
+class Client;
 
 namespace {
 	constexpr size_t MIN_AGE_ = 18;
 	constexpr size_t MAX_AGE_ = 100;
 }
 
-class Request{
+class Request {
 private:
 	MyString type = "Unknown";
-	MyString firstName = "Unknown";
-	MyString secondName = "Unknown";
-	MyString egn = "Unknown";
-
-	size_t age=0;
+	Client* client;
 
 public:
 	Request() = default;
-	Request(const MyString& type, const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age);
+	Request(const MyString& type, Client* client);
 
 	const MyString& getType() const;
 	const MyString& getFirstName() const;
@@ -26,6 +26,8 @@ public:
 	size_t getAge() const;
 
 	void printRequest() const;
+
+	Client* getClient() const;
 
 	~Request() = default;
 };

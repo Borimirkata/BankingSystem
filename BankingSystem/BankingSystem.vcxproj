@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="Account.h" />
     <ClInclude Include="Bank.h" />
+    <ClInclude Include="BankingSystem.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="Message.h" />
@@ -140,7 +141,9 @@
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Bank.cpp" />
+    <ClCompile Include="BankingSystem.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="Employee.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="Request.cpp" />

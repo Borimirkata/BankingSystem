@@ -8,16 +8,16 @@ namespace {
 
 class User {
 protected:
-	MyString firstName="Unknown";
+	MyString firstName = "Unknown";
 	MyString secondName = "Unknown";
-	MyString egn="N/A";
-	size_t age=0;
-	MyString role="Unknown";
-	MyString password="N/A";
+	MyString egn = "N/A";
+	size_t age = 0;
+	MyString role = "Unknown";
+	MyString password = "N/A";
 
 public:
 	User() = default;
-	User(const MyString& firstName,const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password);
+	User(const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password);
 
 	const MyString& getFirstName() const;
 	const MyString& getSecondName() const;

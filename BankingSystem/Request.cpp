@@ -1,10 +1,8 @@
 #include "Request.h"
 
-Request::Request(const MyString& type, const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age) :type(type), firstName(firstName), secondName(secondName), egn(egn) {
-	if (age < MIN_AGE_ || age>MAX_AGE_) {
-		throw std::exception("Incorrect age");
-	}
-	this->age = age;
+Request::Request(const MyString& type, Client* client) {
+	this->type = type;
+	this->client = client;
 }
 
 const MyString& Request::getType() const {
@@ -12,21 +10,34 @@ const MyString& Request::getType() const {
 }
 
 const MyString& Request::getFirstName() const {
-	return firstName;
+	return client->getFirstName();
 }
 
 const MyString& Request::getSecondName() const {
-	return secondName;
+	return client->getSecondName();
 }
 
 const MyString& Request::getEgn() const {
-	return egn;
+	return client->getEgn();
 }
 
 size_t Request::getAge() const {
-	return age;
+	return client->getAge();
 }
 
 void Request::printRequest() const {
-	std::cout << getType() << " - " << getFirstName() << " " << getSecondName() << "want to " << getType() << " account";
+	if (getType() == type1) {
+		std::cout <<getType()<<" - "<< getFirstName() << " " << getSecondName() << "wants to create an account!" << std::endl;
+	}
+	else if (getType() == type2) {
+		std::cout <<getType()<<" - "<< getFirstName() << " " << getSecondName() << "wants to close an account!" << std::endl;
+	}
+	else if (getType() == type3) {
+		//to do
+	}
+}
+
+Client* Request::getClient() const
+{
+	return client;
 }

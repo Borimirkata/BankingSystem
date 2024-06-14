@@ -27,7 +27,7 @@ void Client::check_avl(const MyString& bankName, size_t accountNumber) const {
 
 void Client::open(const MyString& bankName) {
 
-	Bank* currentB = BankingSystem::get_bank_by_name(bankName);
+	Bank* currentB = BankingSystem::getBankByName(bankName);
 
 	currentB->sendRequestToEmployee(type1, this);
 }
@@ -61,7 +61,6 @@ void Client::list(const MyString& bankName) const {
 
 	banks[index]->printAccounts();
 
-
 }
 
 void Client::messages() const {
@@ -69,9 +68,10 @@ void Client::messages() const {
 		std::cout << "No messages to show" << std::endl;
 	}
 
-	size_t messagesSize = message.getSize();
-	for (size_t i = 0; i < messagesSize; i++) {
-		std::cout << "[" << (i + 1) << "] " << message[i].getContent() << "! Message from:" << message[i].getFrom() << std::endl;
+	int count = message.getSize();
+	for (int i = 0; i < count; i++) {
+		std::cout << "[" << (i) << "] ";
+		message[i].printMessage();
 	}
 }
 
@@ -97,7 +97,7 @@ void Client::help() const {
 }
 
 void Client::addBank(const MyString& bankName) {
-	banks.push_back(BankingSystem::get_bank_by_name(bankName));
+	banks.push_back(BankingSystem::getBankByName(bankName));
 }
 
 void Client::addMessage(const Message& mess) {
@@ -113,11 +113,13 @@ void Client::addMessage(const Message& mess) {
 int main() {
 	Client c1("Borimir", "Aleksiev", "*.............*", 19, "Client", "*", "Vidima");
 
-	BankingSystem::create_bank("Fibank");
+	BankingSystem::createBank("Fibank");
 	Employee e1("asd", "dsa", "*....*", 20, "Employee", "*", "Fibank");
 
 	c1.messages();
 	c1.open("Fibank");
+	e1.approve(0);
+	std::cout << 6;
 
 }
 

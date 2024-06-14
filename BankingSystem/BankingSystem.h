@@ -16,10 +16,8 @@ private:
 public:
 
 
-	static void create_bank(const MyString& bankName);
+	static void createBank(const MyString& bankName);
 
-	static Bank* get_bank_by_name(const MyString& bankName);
-
-
+	static Bank* getBankByName(const MyString& bankName);
 
 };
