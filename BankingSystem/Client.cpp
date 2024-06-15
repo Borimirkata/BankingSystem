@@ -1,7 +1,6 @@
 #include "Client.h"
 
 int Client::getBankIndex(const MyString& bankName) const {
-	int index = -1;
 	size_t banksCount = banks.getSize();
 
 	for (size_t i = 0; i < banksCount; i++) {

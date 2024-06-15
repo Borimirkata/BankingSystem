@@ -130,23 +130,29 @@
     <ClInclude Include="Account.h" />
     <ClInclude Include="Bank.h" />
     <ClInclude Include="BankingSystem.h" />
+    <ClInclude Include="Check.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="HelperFunctions.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.hpp" />
     <ClInclude Include="Request.h" />
+    <ClInclude Include="ThirdPartyEmployee.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="Bank.cpp" />
     <ClCompile Include="BankingSystem.cpp" />
+    <ClCompile Include="Check.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Employee.cpp" />
+    <ClCompile Include="HelperFunctions.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="Request.cpp" />
+    <ClCompile Include="ThirdPartyEmployee.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
