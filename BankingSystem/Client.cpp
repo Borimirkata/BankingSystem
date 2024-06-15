@@ -49,8 +49,10 @@ void Client::change(const MyString& newBankName, const MyString& currentBankName
 		throw std::exception("Incorrect bank names!");
 	}
 	Bank* currentB = banks[indexCurrent];
+	Bank* newB = banks[indexNew];
 
 	currentB->sendRequestToEmployee(Request(type3, this, accountNumber));
+	newB->sendRequestToEmployee(Request(type3, this));
 }
 
 void Client::list(const MyString& bankName) const {
@@ -108,6 +110,15 @@ void Client::addMessage(const Message& mess) {
 	// mess.concent approve change
 	this->addBank(mess.getBankName());
 
+}
+
+Bank* Client::getBank(const MyString& bankName) {
+	int index = getBankIndex(bankName);
+
+	if (index == -1) {
+		throw std::exception("Incorrect bank name");
+	}
+	return banks[index];
 }
 
 int main() {

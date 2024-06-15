@@ -12,6 +12,13 @@ Request::Request(const MyString& type, Client* client, int accountNum) {
 	this->accountNum = accountNum;
 }
 
+Request::Request(const MyString& type, Client* client, int accountNum, const MyString& nameBank) {
+	this->type = type;
+	this->client = client;
+	this->accountNum = accountNum;
+	this->nameBank = nameBank;
+}
+
 const MyString& Request::getType() const {
 	return type;
 }

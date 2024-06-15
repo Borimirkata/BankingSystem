@@ -1,7 +1,11 @@
 #include "Message.h"
 
 Message::Message(const MyString& from, const MyString& content, const MyString& bankName) : from(from), content(content), bankName(bankName) {
+	this->accNumber = MessageData::VALUE;
+}
 
+Message::Message(const MyString& from, const MyString& content, const MyString& bankName, int number) :from(from), content(content), bankName(bankName) {
+	this->accNumber = number;
 }
 
 void Message::setFrom(const MyString& from) {

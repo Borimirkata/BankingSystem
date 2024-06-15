@@ -116,8 +116,6 @@ void Bank::sendRequestToEmployee(const Request& request) {
 
 void Bank::sendAnswerToClient(const Message& message, Client* client)
 {
-	// check for approved open
-
 	client->addMessage(message);
 }
 

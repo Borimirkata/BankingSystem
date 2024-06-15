@@ -26,7 +26,7 @@ public:
 	Client() = default;
 	Client(const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password, const MyString& address);
 
-
+	Bank* getBank(const MyString& bankName);
 
 	void addMessage(const Message& message);
 

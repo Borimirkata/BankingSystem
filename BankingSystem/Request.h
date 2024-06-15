@@ -16,12 +16,14 @@ private:
 	MyString type = "Unknown";
 	Client* client;
 	int accountNum = DEF_VALUE;
+	MyString nameBank = "Unknown";
 
 public:
 
 	Request() = default;
 	Request(const MyString& type, Client* client);
 	Request(const MyString& type, Client* client, int accountNumber);
+	Request(const MyString& type, Client* client, int accountNumber, const MyString& nameBank);
 
 	const MyString& getType() const;
 	const MyString& getFirstName() const;
