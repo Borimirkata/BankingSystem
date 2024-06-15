@@ -18,15 +18,16 @@ void Employee::approve(size_t idx)
 	Request* req = bank->getRequestByIndex(idx);
 
 	if (req->getType() == type1) {
-		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in", bank->getBankName()), req->getClient());
+		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in ", bank->getBankName()), req->getClient());
 
 		srand(time(NULL));
-		unsigned id = rand();
-
-		bank->addAccount(id,0,req->getClient());
+		unsigned id = rand()+1;//the plus 1 is added so that the accountNumber has to be a positive integer
+		bank->addAccount(id,START_BALANCE,req->getClient());
 	}
 	else if (req->getType() == type2) {
-		//to do
+		bank->sendAnswerToClient(Message(this->getFirstName(), "You closed an account in", bank->getBankName()), req->getClient());
+
+		bank->deleteAccount(req->getAccountNum(), req->getClient());
 	}
 	else if (req->getType() == type3) {
 		//to do
@@ -34,7 +35,10 @@ void Employee::approve(size_t idx)
 }
 
 void Employee::disapprove(size_t idx, const MyString& message) {
-	//to do
+	Request* req = bank->getRequestByIndex(idx);
+
+	bank->sendAnswerToClient(Message(this->getFirstName(), message, bank->getBankName()), req->getClient());
+	this->tasks.erase(idx);
 }
 
 void Employee::view(size_t index) const{

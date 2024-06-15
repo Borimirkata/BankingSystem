@@ -3,6 +3,13 @@
 Request::Request(const MyString& type, Client* client) {
 	this->type = type;
 	this->client = client;
+	this->accountNum = DEF_VALUE;
+}
+
+Request::Request(const MyString& type, Client* client, int accountNum) {
+	this->type = type;
+	this->client = client;
+	this->accountNum = accountNum;
 }
 
 const MyString& Request::getType() const {
@@ -37,7 +44,10 @@ void Request::printRequest() const {
 	}
 }
 
-Client* Request::getClient() const
-{
+Client* Request::getClient() const {
 	return client;
+}
+
+int Request::getAccountNum() const {
+	return accountNum;
 }

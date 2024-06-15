@@ -8,6 +8,10 @@
 class Bank;
 class Request;
 
+namespace {
+	constexpr size_t START_BALANCE = 0;
+}
+
 class Employee :public User {
 private:
 	MyString bankAssociated = "Unknown";

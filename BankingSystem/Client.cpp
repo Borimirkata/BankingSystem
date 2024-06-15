@@ -29,7 +29,7 @@ void Client::open(const MyString& bankName) {
 
 	Bank* currentB = BankingSystem::getBankByName(bankName);
 
-	currentB->sendRequestToEmployee(type1, this);
+	currentB->sendRequestToEmployee(Request(type1, this));
 }
 
 void Client::close(const MyString& bankName, size_t accountNumber) {
@@ -39,7 +39,7 @@ void Client::close(const MyString& bankName, size_t accountNumber) {
 	}
 	Bank* currentB = banks[index];
 
-	currentB->sendRequestToEmployee(type2, this);
+	currentB->sendRequestToEmployee(Request(type2, this, accountNumber));
 }
 
 void Client::change(const MyString& newBankName, const MyString& currentBankName, size_t accountNumber) {
@@ -50,7 +50,7 @@ void Client::change(const MyString& newBankName, const MyString& currentBankName
 	}
 	Bank* currentB = banks[indexCurrent];
 
-	currentB->sendRequestToEmployee(type3, this);
+	currentB->sendRequestToEmployee(Request(type3, this, accountNumber));
 }
 
 void Client::list(const MyString& bankName) const {

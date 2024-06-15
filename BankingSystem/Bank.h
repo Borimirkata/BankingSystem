@@ -29,13 +29,14 @@ public:
 
 	double getAccountBalance(size_t number);
 
-	void sendRequestToEmployee(const MyString& role, Client* client);
+	void sendRequestToEmployee(const Request& request);
 	void sendAnswerToClient(const Message& message, Client* client);
 
 	void getCurrentAccount(size_t accountNumber, Account& currentAcc);
 	void getCurrentRequest(const MyString& egn, Request& currentReq);
 
 	void addAccount(size_t accountNumber, double balance, Client* client);
+	void deleteAccount(size_t accountNumber, Client* client);
 	void printAccounts() const;
 
 	void setBankName(const MyString& bankName);

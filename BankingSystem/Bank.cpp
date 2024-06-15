@@ -86,15 +86,32 @@ void Bank::addAccount(size_t accountNumber, double balance, Client* client) {
 	accounts.push_back(Account(accountNumber, balance, client));
 }
 
-void Bank::sendRequestToEmployee(const MyString& role, Client* client) {
-	requests.push_back(Request(role, client));
+void Bank::deleteAccount(size_t accountNumber, Client* client) {
+	int index = getAccountIdx(accountNumber);
+
+	if (index == -1) {
+		throw std::exception("No account with that number exists");
+	}
+
+	accounts.erase(index);
+}
+
+void Bank::sendRequestToEmployee(const Request& request) {
+
+	if (request.getType() == type1) {
+		requests.push_back(Request(request.getType(), request.getClient()));
+	}
+	else if ((request.getType() == type2) || (request.getType() == type3)) {
+		requests.push_back(Request(request.getType(), request.getClient(), request.getAccountNum()));
+	}
+	else {
+		throw std::exception("Wrong request type");
+	}
 
 	int employeeIndex = getEmployeeWithLeastTasks();
 	size_t idx = requests.getSize() - 1;
 
 	employees[employeeIndex]->addTask(&requests[idx]);
-
-	//employees[0]->approve(idx);
 }
 
 void Bank::sendAnswerToClient(const Message& message, Client* client)
