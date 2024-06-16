@@ -20,9 +20,9 @@ void Employee::approve(size_t idx)
 	if (req->getType() == type1) {
 		srand(time(NULL));
 		unsigned id = rand();
-		bank->addAccount(id,START_BALANCE,req->getClient());
-
 		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in ", bank->getBankName(),id), req->getClient());
+
+		bank->addAccount(id, START_BALANCE, req->getClient());
 
 		this->tasks.erase(idx);
 	}
@@ -40,9 +40,10 @@ void Employee::approve(size_t idx)
 	else if (req->getType() == (type3 + approvedChange)) {
 		srand(time(NULL));
 		unsigned id = rand();
-		bank->addAccount(id,req->getMoney(), req->getClient());
 
 		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in ", bank->getBankName(), id), req->getClient());
+
+		bank->addAccount(id, req->getMoney(), req->getClient());
 
 		this->tasks.erase(idx);
 	}
