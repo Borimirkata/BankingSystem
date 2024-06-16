@@ -32,8 +32,7 @@ public:
 	void sendRequestToEmployee(const Request& request);
 	void sendAnswerToClient(const Message& message, Client* client);
 
-	void getCurrentAccount(size_t accountNumber, Account& currentAcc);
-	void getCurrentRequest(const MyString& egn, Request& currentReq);
+	Account* getAccount(size_t accountNumber);
 
 	void addAccount(size_t accountNumber, double balance, Client* client);
 	void deleteAccount(size_t accountNumber, Client* client);
@@ -48,4 +47,6 @@ public:
 	Request* getRequestByIndex(int task_id);
 
 	const MyString& getBankName() const;
+
+	~Bank() = default;
 };

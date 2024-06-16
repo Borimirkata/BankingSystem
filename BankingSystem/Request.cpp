@@ -44,7 +44,7 @@ void Request::printRequest() const {
 		std::cout <<getType()<<" - "<< getFirstName() << " " << getSecondName() << "wants to create an account!" << std::endl;
 	}
 	else if (getType() == type2) {
-		std::cout <<getType()<<" - "<< getFirstName() << " " << getSecondName() << "wants to close an account!" << std::endl;
+		std::cout <<getType()<<" - "<< getFirstName() << " " << getSecondName() << "wants to close an account with id:"<<getAccountNum() << std::endl;
 	}
 	else if (getType() == type3) {
 		//to do
@@ -57,4 +57,8 @@ Client* Request::getClient() const {
 
 int Request::getAccountNum() const {
 	return accountNum;
+}
+
+Request::~Request() {
+	client = nullptr;
 }

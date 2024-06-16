@@ -11,6 +11,17 @@ int Client::getBankIndex(const MyString& bankName) const {
 	return -1;
 }
 
+int Client::getCheckIndex(const MyString& code) const {
+	size_t checksCount = checks.getSize();
+
+	for (size_t i = 0; i < checksCount; i++) {
+		if ((checks[i].getCode() == code)) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 Client::Client(const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password, const MyString& address) :User(firstName, secondName, egn, age, role, password) {
 	this->address = address;
 }
@@ -50,8 +61,29 @@ void Client::change(const MyString& newBankName, const MyString& currentBankName
 	Bank* currentB = banks[indexCurrent];
 	Bank* newB = banks[indexNew];
 
-	currentB->sendRequestToEmployee(Request(type3, this, accountNumber));
-	newB->sendRequestToEmployee(Request(type3, this));
+	currentB->sendRequestToEmployee(Request(type3, this, accountNumber,newB->getBankName()));
+	newB->sendRequestToEmployee(Request(type3, this,accountNumber,currentB->getBankName()));
+}
+
+void Client::redeem(const MyString& bankName, size_t accountNumber, const MyString& verificationCode) {
+	int bankIndex = getBankIndex(bankName);
+
+	if (bankIndex == -1) {
+		throw std::exception("Incorrect bankName");
+	}
+	int checkIndex = getCheckIndex(verificationCode);
+
+	if (checkIndex == -1) {
+		throw std::exception("Invalid code");
+	}
+
+	Bank* currentBank = banks[bankIndex];
+	Account* currentAccount = currentBank->getAccount(accountNumber);
+	double currentBalance = currentAccount->getBalance();
+	double sumCheck = checks[checkIndex].getSum();
+
+	double newBalance = currentBalance + sumCheck;
+	currentAccount->setBalance(newBalance);
 }
 
 void Client::list(const MyString& bankName) const {
@@ -111,6 +143,14 @@ void Client::addMessage(const Message& mess) {
 
 }
 
+void Client::addCheck(const Check& check) {
+	checks.push_back(check);
+}
+
+void Client::receiveCheck(const Check& check) {
+	addCheck(check);
+}
+
 Bank* Client::getBank(const MyString& bankName) {
 	int index = getBankIndex(bankName);
 
@@ -129,7 +169,7 @@ int main() {
 	c1.messages();
 	c1.open("Fibank");
 	e1.approve(0);
-	std::cout << 6;
+	c1.messages();
 
 }
 

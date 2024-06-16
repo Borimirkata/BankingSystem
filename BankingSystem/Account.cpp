@@ -31,3 +31,7 @@ void Account::setBalance(double balance) {
 void Account::printAccount() const {
 	std::cout << "* " << accountNumber << std::endl;
 }
+
+Account::~Account() {
+	client = nullptr;
+}

@@ -37,5 +37,5 @@ public:
 
 	Client* getClient() const;
 
-	~Request() = default;
+	~Request();
 };

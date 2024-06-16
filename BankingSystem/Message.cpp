@@ -4,6 +4,10 @@ Message::Message(const MyString& from, const MyString& content, const MyString& 
 	this->accNumber = MessageData::VALUE;
 }
 
+Message::Message(const MyString& from, const MyString& content, const MyString& bankName,const MyString& code) : from(from), content(content), bankName(bankName),code(code) {
+	this->accNumber = MessageData::VALUE;
+}
+
 Message::Message(const MyString& from, const MyString& content, const MyString& bankName, int number) :from(from), content(content), bankName(bankName) {
 	this->accNumber = number;
 }
@@ -28,6 +32,24 @@ const MyString& Message::getBankName() const {
 	return bankName;
 }
 
+const MyString& Message::getCode() const {
+	return code;
+}
+
+int Message::getAccNumber() const {
+	return accNumber;
+}
 void Message::printMessage() const {
-	std::cout << getContent() << "! Message from:" << getFrom() << std::endl;
+	if (isSubstring(getContent(), "opened")) {
+		std::cout << getContent() << getBankName() << "! Message from: " << getFrom() << std::endl;
+		std::cout << "Your account id is: " << getAccNumber() << std::endl;
+	}
+	else if (isSubstring(getContent(), "closed")) {
+		std::cout << "You closed an account in: " << getBankName() << std::endl;
+	}
+	else if (isSubstring(getContent(), "check")) {
+		std::cout << getContent() << getFrom() << "! Your verification code is: " << getCode() << std::endl;
+	}
+
+	//to do for change and disapprove
 }

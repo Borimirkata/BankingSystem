@@ -3,6 +3,7 @@
 #include "Message.h"
 #include "Bank.h"
 #include "BankingSystem.h"
+#include "Check.h"
 
 class Bank;
 
@@ -14,13 +15,16 @@ namespace {
 
 class Client :public User {
 private:
-	//Need to add a MyVector for the checks!!!!
 	MyString address = "Unknown";
 	MyVector<Message> message;
 	MyVector<Bank*> banks;
+	MyVector<Check> checks;
 
 	int getBankIndex(const MyString& bankName) const;
+	int getCheckIndex(const MyString& code) const;
+
 	void addBank(const MyString& bankName);
+	void addCheck(const Check& check);
 
 public:
 	Client() = default;
@@ -29,11 +33,12 @@ public:
 	Bank* getBank(const MyString& bankName);
 
 	void addMessage(const Message& message);
+	void receiveCheck(const Check& check);
 
 	void check_avl(const MyString& bankName, size_t accountNumber) const;
 	void open(const MyString& bankName);
 	void close(const MyString& bankName, size_t accountNumber);
-	void redeem(const MyString& bankName, size_t accountNumber, MyString& verificationCode);
+	void redeem(const MyString& bankName, size_t accountNumber,const MyString& verificationCode);
 	void change(const MyString& newBankName, const MyString& currentBankName, size_t accountNumber);
 	void list(const MyString& bankName) const;
 	void messages() const;

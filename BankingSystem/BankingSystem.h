@@ -1,15 +1,11 @@
 #pragma once
 
-#pragma once
-
 #include "MyString.h"
 #include "MyVector.hpp"
 #include "Client.h"
 #include "Bank.h"
 #include "Employee.h"
 #include "ThirdPartyEmployee.h"
-
-
 
 class Bank;
 class Client;

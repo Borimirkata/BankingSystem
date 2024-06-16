@@ -19,4 +19,6 @@ public:
 
 	void setSum(double sum);
 
+	~Check() = default;
+
 };

@@ -25,5 +25,5 @@ public:
 	void setAccountNumber(size_t accountNumber);
 	void setBalance(double balance);
 
-	~Account() = default;
+	~Account();
 };

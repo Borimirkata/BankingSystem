@@ -61,6 +61,16 @@ Employee* Bank::getEmployeeByIndex(int idx)
 	return employees[idx];
 }
 
+Account* Bank::getAccount(size_t accountNumber) {
+	int index = getAccountIdx(accountNumber);
+
+	if (index == -1) {
+		throw std::exception("Incorrect account number!");
+	}
+
+	return &accounts[index];
+}
+
 const MyString& Bank::getBankName() const {
 	return bankName;
 }
@@ -117,26 +127,6 @@ void Bank::sendRequestToEmployee(const Request& request) {
 void Bank::sendAnswerToClient(const Message& message, Client* client)
 {
 	client->addMessage(message);
-}
-
-void Bank::getCurrentAccount(size_t accountNumber, Account& _currentAcc) {
-	int index = getAccountIdx(accountNumber);
-
-	if (index == -1) {
-		throw std::exception("No such account exists");
-	}
-
-	_currentAcc = accounts[index];
-}
-
-void Bank::getCurrentRequest(const MyString& egn, Request& _currentReq) {
-	int index = getRequestIdx(egn);
-
-	if (index == -1) {
-		throw std::exception("No such request exists");
-	}
-
-	_currentReq = requests[index];
 }
 
 void Bank::printAccounts() const {

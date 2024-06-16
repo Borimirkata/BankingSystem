@@ -91,3 +91,7 @@ void Employee::whoami() const {
 	std::cout << "Your EGN is: " << getEgn() << std::endl;
 	std::cout << "Your password is: " << getPassword() << std::endl;
 }
+
+Employee::~Employee() {
+	bank = nullptr;
+}
