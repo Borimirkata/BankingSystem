@@ -3,7 +3,7 @@
 Request::Request(const MyString& type, Client* client) {
 	this->type = type;
 	this->client = client;
-	this->accountNum = DEF_VALUE;
+	this->accountNum = ClientData::DEF_VALUE;
 }
 
 Request::Request(const MyString& type, Client* client, int accountNum) {
@@ -19,35 +19,38 @@ Request::Request(const MyString& type, Client* client, int accountNum, const MyS
 	this->nameBank = nameBank;
 }
 
+Request::Request(const MyString& type, Client* client, int accountNum, const MyString& nameBank,double money) {
+	this->type = type;
+	this->client = client;
+	this->accountNum = accountNum;
+	this->nameBank = nameBank;
+	this->money = money;
+}
+
 const MyString& Request::getType() const {
 	return type;
 }
 
-const MyString& Request::getFirstName() const {
-	return client->getFirstName();
+void Request::setType(const MyString& type) {
+	this->type = type;
 }
 
-const MyString& Request::getSecondName() const {
-	return client->getSecondName();
-}
-
-const MyString& Request::getEgn() const {
-	return client->getEgn();
-}
-
-size_t Request::getAge() const {
-	return client->getAge();
+const MyString& Request::getNameOfBank() const {
+	return nameBank;
 }
 
 void Request::printRequest() const {
 	if (getType() == type1) {
-		std::cout <<getType()<<" - "<< getFirstName() << " " << getSecondName() << "wants to create an account!" << std::endl;
+		std::cout <<getType()<<" - "<< client->getFirstName() << " " << client->getSecondName() << "wants to create an account!" << std::endl;
 	}
 	else if (getType() == type2) {
-		std::cout <<getType()<<" - "<< getFirstName() << " " << getSecondName() << "wants to close an account with id:"<<getAccountNum() << std::endl;
+		std::cout <<getType()<<" - "<< client->getFirstName() << " " << client->getSecondName() << "wants to close an account with id:"<<getAccountNum() << std::endl;
 	}
-	else if (getType() == type3) {
-		//to do
+	else if (getType() == type3 || isSubstring(getType(),approvedChange)) {
+		std::cout << getType() << " - " << client->getFirstName() << " " << client->getSecondName() << "wants to join "<<getNameOfBank()<<std::endl;
+	}
+	else if (isSubstring(getType(), askedChange)) {
+		std::cout <<getType()<<" - "<< getNameOfBank() << " asks if " << client->getFirstName() << " is a real user!" << std::endl;
 	}
 }
 
@@ -57,6 +60,10 @@ Client* Request::getClient() const {
 
 int Request::getAccountNum() const {
 	return accountNum;
+}
+
+double Request::getMoney() const {
+	return money;
 }
 
 Request::~Request() {

@@ -16,12 +16,13 @@ int Bank::getAccountIdx(size_t accountNumber) const {
 int Bank::getRequestIdx(const MyString& egn) const {
 	size_t count = requests.getSize();
 
-	for (size_t i = 0; i < count; i++) {
-		if ((requests[i].getEgn() == egn)) {
-			return i;
-		}
+for (size_t i = 0; i < count; i++) {
+	Client* client = requests[i].getClient();
+	if ((client->getEgn() == egn)) {
+		return i;
 	}
-	return -1;
+}
+return -1;
 }
 
 int Bank::getEmployeeIdx(const MyString& egn) const {
@@ -111,8 +112,11 @@ void Bank::sendRequestToEmployee(const Request& request) {
 	if (request.getType() == type1) {
 		requests.push_back(Request(request.getType(), request.getClient()));
 	}
-	else if ((request.getType() == type2) || (request.getType() == type3)) {
+	else if ((request.getType() == type2)) {
 		requests.push_back(Request(request.getType(), request.getClient(), request.getAccountNum()));
+	}
+	else if ((request.getType() == type3) || isSubstring(request.getType(), type3)){
+		requests.push_back(Request(request.getType(), request.getClient(), request.getAccountNum(),request.getNameOfBank()));
 	}
 	else {
 		throw std::exception("Wrong request type");

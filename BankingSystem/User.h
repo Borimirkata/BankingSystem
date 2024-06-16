@@ -1,10 +1,20 @@
 #pragma once
 #include "MyString.h"
 
-namespace {
+namespace UserData{
 	const size_t MIN_AGE = 18;
 	const size_t MAX_AGE = 100;
 }
+
+namespace {
+	const MyString type1 = "Open";
+	const MyString type2 = "Close";
+	const MyString type3 = "Change";
+	const MyString approvedChange = "(approved)";
+	const MyString askedChange = "Ask";
+
+}
+//this namespace is like a global one because everyone uses them
 
 class User {
 protected:

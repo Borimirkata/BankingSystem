@@ -5,9 +5,7 @@
 
 class Client;
 
-namespace {
-	constexpr size_t MIN_AGE_ = 18;
-	constexpr size_t MAX_AGE_ = 100;
+namespace ClientData{
 	constexpr int DEF_VALUE = 0;
 }
 
@@ -15,8 +13,9 @@ class Request {
 private:
 	MyString type = "Unknown";
 	Client* client;
-	int accountNum = DEF_VALUE;
+	int accountNum = ClientData::DEF_VALUE;
 	MyString nameBank = "Unknown";
+	double money = 0;
 
 public:
 
@@ -24,14 +23,15 @@ public:
 	Request(const MyString& type, Client* client);
 	Request(const MyString& type, Client* client, int accountNumber);
 	Request(const MyString& type, Client* client, int accountNumber, const MyString& nameBank);
+	Request(const MyString& type, Client* client, int accountNumber, const MyString& nameBank,double money);
 
 	const MyString& getType() const;
-	const MyString& getFirstName() const;
-	const MyString& getSecondName() const;
-	const MyString& getEgn() const;
-	size_t getAge() const;
+	void setType(const MyString& type);
+
+	const MyString& getNameOfBank() const;
 
 	int getAccountNum() const;
+	double getMoney() const;
 
 	void printRequest() const;
 

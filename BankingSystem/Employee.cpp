@@ -30,7 +30,22 @@ void Employee::approve(size_t idx)
 		bank->deleteAccount(req->getAccountNum(), req->getClient());
 	}
 	else if (req->getType() == type3) {
-		//Bank* bank = req->getClient()->getBank();
+		std::cout << "Cannot proceed - please make sure " << req->getClient()->getFirstName() << " is real user by asking the bank!" << std::endl;
+		std::cout << "Validate the user!" << std::endl;
+	}
+	else if (isSubstring(req->getType(), askedChange)) {
+		Client* client = req->getClient();
+		Bank* bank = client->getBank(req->getNameOfBank());
+		double money=bank->getAccountBalance(req->getAccountNum());
+		bank->sendRequestToEmployee(Request((req->getType() + approvedChange), req->getClient(), req->getAccountNum(), req->getNameOfBank(),money));
+		bank->deleteAccount(req->getAccountNum(), req->getClient());
+	}
+	else if (isSubstring(req->getType(), approvedChange)) {
+		srand(time(NULL));
+		unsigned id = rand();
+		bank->addAccount(id, req->getMoney(), req->getClient());
+
+		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in ", bank->getBankName(), id), req->getClient());
 	}
 
 	this->tasks.erase(idx);
@@ -39,21 +54,33 @@ void Employee::approve(size_t idx)
 void Employee::disapprove(size_t idx, const MyString& message) {
 	Request* req = bank->getRequestByIndex(idx);
 
-	bank->sendAnswerToClient(Message(this->getFirstName(), message, bank->getBankName()), req->getClient());
+	bank->sendAnswerToClient(Message(this->getFirstName(), ("Reason: "+message), bank->getBankName()), req->getClient());
 	this->tasks.erase(idx);
 }
 
 void Employee::view(size_t index) const{
 	Request* req = bank->getRequestByIndex(index);
+	Client* client = req->getClient();
 
 	std::cout << req->getType() << " request from:" << std::endl;
-	std::cout << "Name: " << req->getFirstName() << " " << req->getSecondName() << std::endl;
-	std::cout << "EGN: " << req->getEgn() << std::endl;
-	std::cout << "Age: " << req->getAge() << std::endl;
+	std::cout << "Name: " << client->getFirstName() << " " << client->getSecondName() << std::endl;
+	std::cout << "EGN: " << client->getEgn() << std::endl;
+	std::cout << "Age: " << client->getAge() << std::endl;
 }
 
 void Employee::validate(size_t index) {
-	//to do
+	Request* req = bank->getRequestByIndex(index);
+	if (req->getType() != type3) {
+		throw std::exception("Can only validate Change tasks!");
+	}
+
+	Client* client = req->getClient();
+
+	const MyString& name = req->getNameOfBank();
+	Bank* bank = client->getBank(name);
+
+	bank->sendRequestToEmployee(Request((req->getType()+askedChange), req->getClient(), req->getAccountNum(), bank->getBankName()));
+	tasks.erase(index);
 }
 
 MyVector<Request*> Employee::getTasks() {

@@ -50,6 +50,7 @@ void Message::printMessage() const {
 	else if (isSubstring(getContent(), "check")) {
 		std::cout << getContent() << getFrom() << "! Your verification code is: " << getCode() << std::endl;
 	}
-
-	//to do for change and disapprove
+	else if (isSubstring(getContent(), "Reason")) {
+		std::cout << "Your request has been disapproved from " << getFrom() << "." << getContent() << std::endl;
+	}
 }

@@ -61,7 +61,6 @@ void Client::change(const MyString& newBankName, const MyString& currentBankName
 	Bank* currentB = banks[indexCurrent];
 	Bank* newB = banks[indexNew];
 
-	currentB->sendRequestToEmployee(Request(type3, this, accountNumber,newB->getBankName()));
 	newB->sendRequestToEmployee(Request(type3, this,accountNumber,currentB->getBankName()));
 }
 
@@ -135,12 +134,11 @@ void Client::addBank(const MyString& bankName) {
 
 void Client::addMessage(const Message& mess) {
 	message.push_back(mess);
+	int index = getBankIndex(mess.getBankName());
 
-	// mess.content approve open 
-	// mess.content approve close
-	// mess.concent approve change
-	this->addBank(mess.getBankName());
-
+	if (isSubstring(mess.getContent(), "opened") && index==-1) {
+		this->addBank(mess.getBankName());
+	}
 }
 
 void Client::addCheck(const Check& check) {
