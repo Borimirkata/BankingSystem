@@ -11,7 +11,6 @@ namespace {
 	const MyString type2 = "Close";
 	const MyString type3 = "Change";
 	const MyString approvedChange = "(approved)";
-	const MyString askedChange = "Ask";
 
 }
 //this namespace is like a global one because everyone uses them

@@ -158,16 +158,41 @@ Bank* Client::getBank(const MyString& bankName) {
 	return banks[index];
 }
 
+Message* Client::getMessageAtIndex(size_t index) {
+	return &message[index];
+}
+
 int main() {
-	Client c1("Borimir", "Aleksiev", "*.............*", 19, "Client", "*", "Vidima");
+	BankingSystem system;
+	Client c1("Borimir", "Aleksiev", "0xxxxxxxx1", 19, "Client", "*", "Vidima");
 
-	BankingSystem::createBank("Fibank");
-	Employee e1("asd", "dsa", "*....*", 20, "Employee", "*", "Fibank");
-
-	c1.messages();
+	system.createBank("Fibank");
+	system.createBank("DSK");
+	Employee e1("FirstPerson", "Hristov", "0xxxxxxxx2", 20, "Employee", "*#", "Fibank");
+	Employee e2("SecondPerson", "Nenkov", "0xxxxxxxx3", 24, "Employee", "**", "DSK");
 	c1.open("Fibank");
+	e1.printTasks();
+	e1.view(0);
 	e1.approve(0);
 	c1.messages();
+	int accountNum = c1.getMessageAtIndex(0)->getAccNumber();
+	c1.list("Fibank");
+	c1.check_avl("Fibank", accountNum);
+	//c1.change("DSK", "Fibank", accountNum);
+	/*e2.printTasks();
+	e2.view(0);
+	e2.approve(0);
+	e2.validate(0);
+
+	e1.printTasks();
+	e1.view(0);
+	e1.approve(0);
+
+	e2.printTasks();
+	e2.approve(0);
+
+	c1.messages();*/
+
 
 }
 

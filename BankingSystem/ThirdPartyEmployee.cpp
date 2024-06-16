@@ -30,6 +30,10 @@ int ThirdPartyEmployee::getBankIndex(const MyString& bankName) const {
 	return -1;
 }
 
+void ThirdPartyEmployee::addBank(const MyString& bankName) {
+	banks.push_back(BankingSystem::getBankByName(bankName));
+}
+
 int ThirdPartyEmployee::getClientIndex(const MyString& egn) const {
 	size_t clientsCount = clients.getSize();
 

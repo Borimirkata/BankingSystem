@@ -28,6 +28,7 @@ public:
 	void send_check(double sum, const MyString& bankName,const MyString& code, const MyString& egn);
 	void help() const override;
 	void whoami() const override;
+	void addBank(const MyString& bankName);
 
 	~ThirdPartyEmployee() = default;
 };

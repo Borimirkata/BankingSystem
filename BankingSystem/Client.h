@@ -4,8 +4,10 @@
 #include "Bank.h"
 #include "BankingSystem.h"
 #include "Check.h"
+#include "ThirdPartyEmployee.h"
 
 class Bank;
+class ThirdPartyEmployee;
 
 class Client :public User {
 private:
@@ -27,6 +29,8 @@ public:
 	Bank* getBank(const MyString& bankName);
 
 	void addMessage(const Message& message);
+
+	Message* getMessageAtIndex(size_t index);
 	void receiveCheck(const Check& check);
 
 	void check_avl(const MyString& bankName, size_t accountNumber) const;

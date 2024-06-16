@@ -4,12 +4,14 @@ Request::Request(const MyString& type, Client* client) {
 	this->type = type;
 	this->client = client;
 	this->accountNum = ClientData::DEF_VALUE;
+	this->money = ClientData::DEF_VALUE;
 }
 
 Request::Request(const MyString& type, Client* client, int accountNum) {
 	this->type = type;
 	this->client = client;
 	this->accountNum = accountNum;
+	this->money = ClientData::DEF_VALUE;
 }
 
 Request::Request(const MyString& type, Client* client, int accountNum, const MyString& nameBank) {
@@ -17,6 +19,7 @@ Request::Request(const MyString& type, Client* client, int accountNum, const MyS
 	this->client = client;
 	this->accountNum = accountNum;
 	this->nameBank = nameBank;
+	this->money = ClientData::DEF_VALUE;
 }
 
 Request::Request(const MyString& type, Client* client, int accountNum, const MyString& nameBank,double money) {
@@ -41,16 +44,13 @@ const MyString& Request::getNameOfBank() const {
 
 void Request::printRequest() const {
 	if (getType() == type1) {
-		std::cout <<getType()<<" - "<< client->getFirstName() << " " << client->getSecondName() << "wants to create an account!" << std::endl;
+		std::cout <<getType()<<" - "<< client->getFirstName() << " " << client->getSecondName() << " wants to create an account!" << std::endl;
 	}
 	else if (getType() == type2) {
-		std::cout <<getType()<<" - "<< client->getFirstName() << " " << client->getSecondName() << "wants to close an account with id:"<<getAccountNum() << std::endl;
+		std::cout <<getType()<<" - "<< client->getFirstName() << " " << client->getSecondName() << " wants to close an account with id:"<<getAccountNum() << std::endl;
 	}
 	else if (getType() == type3 || isSubstring(getType(),approvedChange)) {
-		std::cout << getType() << " - " << client->getFirstName() << " " << client->getSecondName() << "wants to join "<<getNameOfBank()<<std::endl;
-	}
-	else if (isSubstring(getType(), askedChange)) {
-		std::cout <<getType()<<" - "<< getNameOfBank() << " asks if " << client->getFirstName() << " is a real user!" << std::endl;
+		std::cout << getType() << " - " << client->getFirstName() << " " << client->getSecondName() << " wants to join "<<getNameOfBank()<<std::endl;
 	}
 }
 
@@ -64,6 +64,10 @@ int Request::getAccountNum() const {
 
 double Request::getMoney() const {
 	return money;
+}
+
+void Request::setMoney(double money) {
+	this->money = money;
 }
 
 Request::~Request() {

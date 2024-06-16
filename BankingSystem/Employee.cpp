@@ -23,32 +23,29 @@ void Employee::approve(size_t idx)
 		bank->addAccount(id,START_BALANCE,req->getClient());
 
 		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in ", bank->getBankName(),id), req->getClient());
+
+		this->tasks.erase(idx);
 	}
 	else if (req->getType() == type2) {
 		bank->sendAnswerToClient(Message(this->getFirstName(), "You closed an account in", bank->getBankName()), req->getClient());
 
 		bank->deleteAccount(req->getAccountNum(), req->getClient());
+
+		this->tasks.erase(idx);
 	}
 	else if (req->getType() == type3) {
 		std::cout << "Cannot proceed - please make sure " << req->getClient()->getFirstName() << " is real user by asking the bank!" << std::endl;
 		std::cout << "Validate the user!" << std::endl;
 	}
-	else if (isSubstring(req->getType(), askedChange)) {
-		Client* client = req->getClient();
-		Bank* bank = client->getBank(req->getNameOfBank());
-		double money=bank->getAccountBalance(req->getAccountNum());
-		bank->sendRequestToEmployee(Request((req->getType() + approvedChange), req->getClient(), req->getAccountNum(), req->getNameOfBank(),money));
-		bank->deleteAccount(req->getAccountNum(), req->getClient());
-	}
-	else if (isSubstring(req->getType(), approvedChange)) {
+	else if (req->getType() == (type3 + approvedChange)) {
 		srand(time(NULL));
 		unsigned id = rand();
-		bank->addAccount(id, req->getMoney(), req->getClient());
+		bank->addAccount(id,req->getMoney(), req->getClient());
 
 		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in ", bank->getBankName(), id), req->getClient());
-	}
 
-	this->tasks.erase(idx);
+		this->tasks.erase(idx);
+	}
 }
 
 void Employee::disapprove(size_t idx, const MyString& message) {
@@ -77,10 +74,18 @@ void Employee::validate(size_t index) {
 	Client* client = req->getClient();
 
 	const MyString& name = req->getNameOfBank();
-	Bank* bank = client->getBank(name);
+	Bank* currBank = client->getBank(name);
 
-	bank->sendRequestToEmployee(Request((req->getType()+askedChange), req->getClient(), req->getAccountNum(), bank->getBankName()));
-	tasks.erase(index);
+	bool validation = bank->checkClient(client);
+	if (validation) {
+		currBank->deleteAccount(req->getAccountNum(), req->getClient());
+		tasks[index]->setType(type3 + approvedChange);
+		tasks[index]->setMoney(currBank->getAccountBalance(req->getAccountNum()));
+	}
+	else {
+		currBank->sendAnswerToClient(Message(getFirstName(), "Sorry but the client is not valid", currBank->getBankName()),req->getClient());
+		tasks.erase(index);
+	}
 }
 
 MyVector<Request*> Employee::getTasks() {

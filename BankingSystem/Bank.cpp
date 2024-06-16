@@ -162,3 +162,19 @@ int Bank::getEmployeeWithLeastTasks() const {
 	}
 	return indexToReturn;
 }
+
+bool Bank::validateClient(Client* client) const {
+	size_t clientCount = clients.getSize();
+
+	for (int i = 0; i < clientCount; i++) {
+		if (clients[i]->getFirstName() == client->getFirstName() && clients[i]->getSecondName() == client->getSecondName()
+			&& clients[i]->getEgn() == client->getEgn() && clients[i]->getAge() == client->getAge()) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Bank::checkClient(Client* client) const {
+	return validateClient(client);
+}

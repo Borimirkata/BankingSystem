@@ -15,7 +15,7 @@ private:
 	Client* client;
 	int accountNum = ClientData::DEF_VALUE;
 	MyString nameBank = "Unknown";
-	double money = 0;
+	double money = ClientData::DEF_VALUE;
 
 public:
 
@@ -32,6 +32,8 @@ public:
 
 	int getAccountNum() const;
 	double getMoney() const;
+
+	void setMoney(double money);
 
 	void printRequest() const;
 

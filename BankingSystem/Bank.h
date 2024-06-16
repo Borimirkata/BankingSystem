@@ -14,11 +14,12 @@ private:
 	MyVector<Account> accounts;
 	MyVector<Request> requests;
 	MyVector<Client*> clients;
-	//new stuff below this message
 
 	MyVector<Employee*> employees;
 	int getEmployeeIdx(const MyString& egn) const;
 	int getEmployeeWithLeastTasks() const;
+
+	bool validateClient(Client* client) const;
 
 	int getAccountIdx(size_t accountNumber) const;
 	int getRequestIdx(const MyString& egn) const;
@@ -41,7 +42,7 @@ public:
 	void setBankName(const MyString& bankName);
 
 	MyVector<Employee*>& getEmployees();
-
+	bool checkClient(Client* client) const;
 
 	Employee* getEmployeeByIndex(int idx);
 	Request* getRequestByIndex(int task_id);
