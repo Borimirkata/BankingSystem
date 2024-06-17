@@ -41,7 +41,7 @@ void Employee::approve(size_t idx)
 		srand(time(NULL));
 		unsigned id = rand();
 
-		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in ", bank->getBankName(), id), req->getClient());
+		bank->sendAnswerToClient(Message(this->getFirstName(), "You changed your account to ", bank->getBankName(), id), req->getClient());
 
 		bank->addAccount(id, req->getMoney(), req->getClient());
 
@@ -79,9 +79,10 @@ void Employee::validate(size_t index) {
 
 	bool validation = bank->checkClient(client);
 	if (validation) {
-		currBank->deleteAccount(req->getAccountNum(), req->getClient());
 		tasks[index]->setType(type3 + approvedChange);
 		tasks[index]->setMoney(currBank->getAccountBalance(req->getAccountNum()));
+
+		currBank->deleteAccount(req->getAccountNum(), req->getClient());
 	}
 	else {
 		currBank->sendAnswerToClient(Message(getFirstName(), "Sorry but the client is not valid", currBank->getBankName()),req->getClient());

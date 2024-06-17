@@ -34,26 +34,20 @@ void ThirdPartyEmployee::addBank(const MyString& bankName) {
 	banks.push_back(BankingSystem::getBankByName(bankName));
 }
 
-int ThirdPartyEmployee::getClientIndex(const MyString& egn) const {
-	size_t clientsCount = clients.getSize();
+Client* ThirdPartyEmployee::getClient(const MyString& bankName,const MyString& egn) const {
+	int index = getBankIndex(bankName);
+	Bank* currBank = banks[index];
+	Client* currClient = currBank->getClient(egn);
 
-	for (size_t i = 0; i < clientsCount; i++) {
-		if (clients[i]->getEgn() == egn) {
-			return i;
-		}
-	}
-	return -1;
+	return currClient;
 }
 
 void ThirdPartyEmployee::send_check(double sum, const MyString& bankName,const MyString& code, const MyString& egn) {
 	if (sum <= 0) {
 		throw std::exception("Invalid sum");
 	}
-	int indexClient = getClientIndex(egn);
 
-	if (indexClient == -1) {
-		throw std::exception("There is no client with that EGN");
-	}
+	Client* currentClient = getClient(bankName, egn);
 
 	int bankIndex = getBankIndex(bankName);
 
@@ -65,8 +59,6 @@ void ThirdPartyEmployee::send_check(double sum, const MyString& bankName,const M
 	if (!validateCode(code)) {
 		throw std::exception("Invalid code");
 	}
-
-	Client* currentClient = clients[indexClient];
 	Bank* currentBank = banks[bankIndex];
 	currentClient->addMessage(Message(this->getFirstName(), "You have a check assigned by", currentBank->getBankName(),code));
 	currentClient->receiveCheck(Check(code, sum));

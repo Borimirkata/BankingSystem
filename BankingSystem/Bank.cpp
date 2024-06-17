@@ -36,6 +36,17 @@ int Bank::getEmployeeIdx(const MyString& egn) const {
 	return -1;
 }
 
+int Bank::getClientIdx(const MyString& egn) const {
+	size_t count = clients.getSize();
+
+	for (size_t i = 0; i < count; i++) {
+		if ((clients[i]->getEgn() == egn)) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 Bank::Bank(const MyString& bankName) {
 	setBankName(bankName);
 }
@@ -60,6 +71,12 @@ Employee* Bank::getEmployeeByIndex(int idx)
 	}
 
 	return employees[idx];
+}
+
+Client* Bank::getClient(const MyString& egn) {
+	int index = getClientIdx(egn);
+
+	return clients[index];
 }
 
 Account* Bank::getAccount(size_t accountNumber) {
@@ -177,4 +194,8 @@ bool Bank::validateClient(Client* client) const {
 
 bool Bank::checkClient(Client* client) const {
 	return validateClient(client);
+}
+
+void Bank::addClient(Client* client) {
+	clients.push_back(client);
 }

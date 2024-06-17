@@ -131,6 +131,9 @@ void Client::help() const {
 
 void Client::addBank(const MyString& bankName) {
 	banks.push_back(BankingSystem::getBankByName(bankName));
+	Bank* bank = getBank(bankName);
+	bank->addClient(this);
+
 }
 
 void Client::addMessage(const Message& mess) {
@@ -166,11 +169,14 @@ Message* Client::getMessageAtIndex(size_t index) {
 int main() {
 	BankingSystem system;
 	Client c1("Borimir", "Aleksiev", "0xxxxxxxx1", 19, "Client", "*", "Vidima");
-
 	system.createBank("Fibank");
 	system.createBank("DSK");
+	c1.addBank("DSK");
 	Employee e1("FirstPerson", "Hristov", "0xxxxxxxx2", 20, "Employee", "*#", "Fibank");
 	Employee e2("SecondPerson", "Nenkov", "0xxxxxxxx3", 24, "Employee", "**", "DSK");
+	ThirdPartyEmployee tp1("ThirdParty", "Employer", "0xxxxxxx4", 34, "ThirdPartyEmployee", "***");
+	tp1.addBank("Fibank");
+	tp1.addBank("DSK");
 	c1.open("Fibank");
 	e1.printTasks();
 	e1.view(0);
@@ -180,20 +186,19 @@ int main() {
 	c1.list("Fibank");
 	c1.check_avl("Fibank", accountNum);
 	c1.change("DSK", "Fibank", accountNum);
-	/*e2.printTasks();
+	e2.printTasks();
 	e2.view(0);
 	e2.approve(0);
 	e2.validate(0);
-
-	e1.printTasks();
-	e1.view(0);
-	e1.approve(0);
-
 	e2.printTasks();
 	e2.approve(0);
-
-	c1.messages();*/
-
+	int accountNum2 = c1.getMessageAtIndex(1)->getAccNumber();
+	tp1.send_check(150.00,"DSK", "agd", "0xxxxxxxx1");
+	c1.messages();
+	c1.check_avl("DSK", accountNum2);
+	c1.redeem("DSK", accountNum2, "agd");
+	c1.check_avl("DSK", accountNum2);
+	
 
 }
 

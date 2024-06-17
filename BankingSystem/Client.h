@@ -19,7 +19,7 @@ private:
 	int getBankIndex(const MyString& bankName) const;
 	int getCheckIndex(const MyString& code) const;
 
-	void addBank(const MyString& bankName);
+	//void addBank(const MyString& bankName);
 	void addCheck(const Check& check);
 
 public:
@@ -32,6 +32,7 @@ public:
 
 	Message* getMessageAtIndex(size_t index);
 	void receiveCheck(const Check& check);
+	void addBank(const MyString& bankName);
 
 	void check_avl(const MyString& bankName, size_t accountNumber) const;
 	void open(const MyString& bankName);

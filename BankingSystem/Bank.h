@@ -20,6 +20,7 @@ private:
 	int getEmployeeWithLeastTasks() const;
 
 	bool validateClient(Client* client) const;
+	int getClientIdx(const MyString& egn) const;
 
 	int getAccountIdx(size_t accountNumber) const;
 	int getRequestIdx(const MyString& egn) const;
@@ -27,6 +28,8 @@ private:
 public:
 	Bank() = default;
 	Bank(const MyString& bankName);
+
+	void addClient(Client* client);
 
 	double getAccountBalance(size_t number);
 
@@ -42,6 +45,7 @@ public:
 	void setBankName(const MyString& bankName);
 
 	MyVector<Employee*>& getEmployees();
+	Client* getClient(const MyString& egn);
 	bool checkClient(Client* client) const;
 
 	Employee* getEmployeeByIndex(int idx);

@@ -5,7 +5,7 @@
 #include "HelperFunctions.h"
 
 namespace ThirdPartyData {
-	constexpr int SIZE = 0;
+	constexpr int SIZE = 3;
 }
 
 class Bank;
@@ -14,10 +14,9 @@ class Client;
 class ThirdPartyEmployee :public User {
 private:
 	MyVector<Bank*> banks;
-	MyVector<Client*> clients;
 
 	int getBankIndex(const MyString& bankName) const;
-	int getClientIndex(const MyString& egn) const;
+	Client* getClient(const MyString& bankName,const MyString& egn) const;
 
 	bool validateCode(const MyString& text) const;
 
