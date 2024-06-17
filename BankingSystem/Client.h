@@ -19,7 +19,6 @@ private:
 	int getBankIndex(const MyString& bankName) const;
 	int getCheckIndex(const MyString& code) const;
 
-	//void addBank(const MyString& bankName);
 	void addCheck(const Check& check);
 
 public:
@@ -44,7 +43,7 @@ public:
 
 	virtual void help() const override;
 	virtual void whoami() const override;
-	//virtual void exit() override;
+	virtual void exit() const override;
 
 	~Client() = default;
 };

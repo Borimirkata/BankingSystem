@@ -79,3 +79,7 @@ void ThirdPartyEmployee::whoami() const {
 	std::cout << "Your EGN is: " << getEgn() << std::endl;
 	std::cout << "Your password is: " << getPassword() << std::endl;
 }
+
+void ThirdPartyEmployee::exit() const {
+	std::cout << getRole() << ": " << getFirstName() << " " << getSecondName() << " exited!" << std::endl;
+}

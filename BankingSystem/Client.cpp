@@ -166,6 +166,10 @@ Message* Client::getMessageAtIndex(size_t index) {
 	return &message[index];
 }
 
+void Client::exit() const {
+	std::cout << getRole() << ": " << getFirstName() << " " << getSecondName() << " exited!" << std::endl;
+}
+
 int main() {
 	BankingSystem system;
 	Client c1("Borimir", "Aleksiev", "0xxxxxxxx1", 19, "Client", "*", "Vidima");

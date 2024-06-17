@@ -33,6 +33,7 @@ public:
 
 	virtual void help() const override;
 	virtual void whoami() const override;
+	virtual void exit() const override;
 
 	~Employee();
 };

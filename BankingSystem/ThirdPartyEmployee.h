@@ -25,8 +25,9 @@ public:
 	ThirdPartyEmployee(const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password);
 
 	void send_check(double sum, const MyString& bankName,const MyString& code, const MyString& egn);
-	void help() const override;
-	void whoami() const override;
+	virtual void help() const override;
+	virtual void whoami() const override;
+	virtual void exit() const override;
 	void addBank(const MyString& bankName);
 
 	~ThirdPartyEmployee() = default;

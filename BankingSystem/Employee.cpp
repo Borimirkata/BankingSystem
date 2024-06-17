@@ -98,9 +98,9 @@ void Employee::printTasks() const {
 	if (tasks.empty()) {
 		std::cout << "No tasks to print!";
 	}
-	int count = tasks.getSize();
+	size_t count = tasks.getSize();
 
-	for (int i = 0; i < count; i++) {
+	for (size_t i = 0; i < count; i++) {
 		std::cout << "[" << i << "] ";
 		tasks[i]->printRequest();
 	}
@@ -128,4 +128,8 @@ void Employee::whoami() const {
 
 Employee::~Employee() {
 	bank = nullptr;
+}
+
+void Employee::exit() const {
+	std::cout << getRole() << ": " << getFirstName() << " " << getSecondName() << " exited!" << std::endl;
 }
