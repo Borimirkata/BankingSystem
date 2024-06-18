@@ -69,8 +69,10 @@ void BankingSystem::signup(const MyString& firstName, const MyString& secondName
 	if (role == Roles::client) {
 		clients.push_back(Client(firstName, secondName, egn, age, role, password, address));
 		int index = clients.getSize() - 1;
+		Client* currClient = &clients[index];
 		for (int i = 0; i < banks.getSize(); i++) {
-			clients[index].addBank(this->getBankByName(banks[i].getBankName()));
+			currClient->addBank(this->getBankByName(banks[i].getBankName()));
+			banks[i].addClient(currClient);
 		}
 	}
 	else if (role == Roles::employee) {

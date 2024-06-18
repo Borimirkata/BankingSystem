@@ -131,8 +131,6 @@ void Client::help() const {
 
 void Client::addBank(Bank* bank) {
 	banks.push_back(bank);
-	bank->addClient(this);
-
 }
 
 void Client::addMessage(const Message& mess) {

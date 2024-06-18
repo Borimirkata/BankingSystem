@@ -132,7 +132,7 @@ void run() {
 			double sum;
 			std::cin >> sum;
 			std::cin.ignore();
-			std::cin >> bankName, code, egn;
+			std::cin >> bankName>>code>>egn;
 			b.thirdPartySendCheck(sum, bankName, code, egn);
 		}
 		else {
