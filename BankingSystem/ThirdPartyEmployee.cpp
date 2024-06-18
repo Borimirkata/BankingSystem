@@ -37,8 +37,7 @@ void ThirdPartyEmployee::addBank(const MyString& bankName) {
 Client* ThirdPartyEmployee::getClient(const MyString& bankName,const MyString& egn) const {
 	int index = getBankIndex(bankName);
 	Bank* currBank = banks[index];
-	Client* currClient = currBank->getClient(egn);
-
+	Client* currClient = currBank->getClient(egn);//here it breaks
 	return currClient;
 }
 
@@ -54,7 +53,6 @@ void ThirdPartyEmployee::send_check(double sum, const MyString& bankName,const M
 	if (bankIndex == -1) {
 		throw std::exception("There is no bank with that name");
 	}
-	//right now the bank index will always give -1 because the banks are not added to the third-party employee
 
 	if (!validateCode(code)) {
 		throw std::exception("Invalid code");

@@ -27,6 +27,7 @@ void run() {
 			}
 			else if (role == Roles::thirdParty) {
 				std::cout << "Enter password: ";
+				std::cin >> password;
 				b.signup(firstName, secondName, egn, ageInt, role, password, "Empty", "Empty");
 			}
 			else {
@@ -53,11 +54,13 @@ void run() {
 			b.login(firstName, secondName, password);
 		}
 		else if (command == "create_bank") {
+			std::cin.ignore();
 			MyString bankName;
 			std::cin >> bankName;
 			b.createBank(bankName);
 		}
 		else if (command == "check_avl") {
+			std::cin.ignore();
 			MyString bankName, accountNumber;
 			std::cin >> bankName >> accountNumber;
 			int accNumberInt = getNumFromStr(accountNumber);
@@ -65,6 +68,7 @@ void run() {
 		}
 		else if (command == "open") {
 			MyString bankName;
+			std::cin.ignore();
 			std::cin >> bankName;
 			b.clientOpen(bankName);
 		}
@@ -123,6 +127,7 @@ void run() {
 			MyString bankName, code, egn;
 			double sum;
 			std::cin >> sum;
+			std::cin.ignore();
 			std::cin >> bankName, code, egn;
 			b.thirdPartySendCheck(sum, bankName, code, egn);
 		}

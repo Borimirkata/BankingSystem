@@ -54,6 +54,6 @@ void Message::printMessage() const {
 		std::cout << "Your request has been disapproved from " << getFrom() << "." << getContent() << std::endl;
 	}
 	else if (isSubstring(getContent(), "changed")) {
-		std::cout << "You changed your account to " << getBankName() << ". New accout id is:" << getAccNumber() << std::endl;
+		std::cout << "You changed your account to " << getBankName() << ". New account id is:" << getAccNumber() << std::endl;
 	}
 }

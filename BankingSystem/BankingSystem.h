@@ -9,7 +9,7 @@
 namespace Roles {
 	const MyString client = "Client";
 	const MyString employee = "Employee";
-	const MyString thirdParty = "Third-party employee";
+	const MyString thirdParty = "Third-party-employee";
 }
 
 class Request;
