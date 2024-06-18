@@ -32,6 +32,7 @@ public:
 	void addClient(Client* client);
 
 	double getAccountBalance(size_t number);
+	void deleteRequest(size_t index);
 
 	void sendRequestToEmployee(const Request& request);
 	void sendAnswerToClient(const Message& message, Client* client);
@@ -43,6 +44,8 @@ public:
 	void printAccounts() const;
 
 	void setBankName(const MyString& bankName);
+
+	void addEmployee(Employee* employee);
 
 	MyVector<Employee*>& getEmployees();
 	Client* getClient(const MyString& egn);

@@ -37,7 +37,7 @@ void Client::check_avl(const MyString& bankName, size_t accountNumber) const {
 
 void Client::open(const MyString& bankName) {
 
-	Bank* currentB = BankingSystem::getBankByName(bankName);
+	Bank* currentB = getBank(bankName);
 
 	currentB->sendRequestToEmployee(Request(type1, this));
 }
@@ -62,7 +62,7 @@ void Client::change(const MyString& newBankName, const MyString& currentBankName
 	Bank* currentB = banks[indexCurrent];
 	Bank* newB = banks[indexNew];
 
-	newB->sendRequestToEmployee(Request(type3, this,accountNumber,currentB->getBankName()));
+	newB->sendRequestToEmployee(Request(type3, this, accountNumber, currentB->getBankName()));
 }
 
 void Client::redeem(const MyString& bankName, size_t accountNumber, const MyString& verificationCode) {
@@ -103,7 +103,7 @@ void Client::messages() const {
 
 	int count = message.getSize();
 	for (int i = 0; i < count; i++) {
-		std::cout << "[" << (i) << "] ";
+		std::cout << "[" << (i+1) << "] ";
 		message[i].printMessage();
 	}
 }
@@ -129,20 +129,14 @@ void Client::help() const {
 	std::cout << "-exit " << std::endl;
 }
 
-void Client::addBank(const MyString& bankName) {
-	banks.push_back(BankingSystem::getBankByName(bankName));
-	Bank* bank = getBank(bankName);
+void Client::addBank(Bank* bank) {
+	banks.push_back(bank);
 	bank->addClient(this);
 
 }
 
 void Client::addMessage(const Message& mess) {
 	message.push_back(mess);
-	int index = getBankIndex(mess.getBankName());
-
-	if (isSubstring(mess.getContent(), "opened") && index==-1) {
-		this->addBank(mess.getBankName());
-	}
 }
 
 void Client::addCheck(const Check& check) {

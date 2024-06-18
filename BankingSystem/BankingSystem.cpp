@@ -1,7 +1,5 @@
 #include "BankingSystem.h"
 
-MyVector<Bank> BankingSystem::banks;
-
 void BankingSystem::createBank(const MyString& bankName) {
 	banks.push_back(Bank(bankName));
 }
@@ -19,7 +17,7 @@ Bank* BankingSystem::getBankByName(const MyString& bankName)
 	return nullptr;
 }
 
-bool BankingSystem::validateClient(const MyString& firstName, const MyString& secondName, const MyString& password,int& index) const{
+bool BankingSystem::validateClient(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const {
 	int clientsCount = clients.getSize();
 	for (int i = 0; i < clientsCount; i++) {
 		if (clients[i].getFirstName() == firstName && clients[i].getSecondName() == secondName && clients[i].getPassword() == password) {
@@ -30,7 +28,7 @@ bool BankingSystem::validateClient(const MyString& firstName, const MyString& se
 	return false;
 }
 
-bool BankingSystem::validateEmployee(const MyString& firstName, const MyString& secondName, const MyString& password,int& index) const{
+bool BankingSystem::validateEmployee(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const {
 	int employeeCount = employees.getSize();
 	for (int i = 0; i < employeeCount; i++) {
 		if (employees[i].getFirstName() == firstName && employees[i].getSecondName() == secondName && employees[i].getPassword() == password) {
@@ -41,7 +39,7 @@ bool BankingSystem::validateEmployee(const MyString& firstName, const MyString& 
 	return false;
 }
 
-bool BankingSystem::validateThirdPartyEmployee(const MyString& firstName, const MyString& secondName, const MyString& password,int& index) const{
+bool BankingSystem::validateThirdPartyEmployee(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const {
 	int thirdPartyEmployeeCount = thirdPartyEmployees.getSize();
 	for (int i = 0; i < thirdPartyEmployeeCount; i++) {
 		if (thirdPartyEmployees[i].getFirstName() == firstName && thirdPartyEmployees[i].getSecondName() == secondName && thirdPartyEmployees[i].getPassword() == password) {
@@ -52,14 +50,14 @@ bool BankingSystem::validateThirdPartyEmployee(const MyString& firstName, const 
 	return false;
 }
 
-const MyString& BankingSystem::getType(const MyString& firstName, const MyString& secondName, const MyString& password,int& index) const {
-	if (validateClient(firstName, secondName, password,index)) {
+const MyString& BankingSystem::getType(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const {
+	if (validateClient(firstName, secondName, password, index)) {
 		return Roles::client;
 	}
-	else if (validateEmployee(firstName, secondName, password,index)) {
+	else if (validateEmployee(firstName, secondName, password, index)) {
 		return Roles::employee;
 	}
-	else if (validateThirdPartyEmployee(firstName, secondName, password,index)) {
+	else if (validateThirdPartyEmployee(firstName, secondName, password, index)) {
 		return Roles::thirdParty;
 	}
 	else {
@@ -67,22 +65,27 @@ const MyString& BankingSystem::getType(const MyString& firstName, const MyString
 	}
 }
 
-void BankingSystem::signup(const MyString& firstName, const MyString& secondName, const MyString& egn, int age, const MyString& role, const MyString& password, const MyString& bankName,const MyString& address) {
+void BankingSystem::signup(const MyString& firstName, const MyString& secondName, const MyString& egn, int age, const MyString& role, const MyString& password, const MyString& bankName, const MyString& address) {
 	if (role == Roles::client) {
-		clients.push_back(Client(firstName, secondName, egn, age, role, password,address));
+		clients.push_back(Client(firstName, secondName, egn, age, role, password, address));
 		int index = clients.getSize() - 1;
 		for (int i = 0; i < banks.getSize(); i++) {
-			clients[index].addBank(banks[i].getBankName());
+			clients[index].addBank(this->getBankByName(banks[i].getBankName()));
 		}
 	}
 	else if (role == Roles::employee) {
 		employees.push_back(Employee(firstName, secondName, egn, age, role, password, bankName));
+		int index = employees.getSize() - 1;
+		Bank* bank = this->getBankByName(bankName);
+		employees[index].setBank(bank);
+		Employee* employee = &employees[index];
+		bank->addEmployee(employee);
 	}
 	else if (role == Roles::thirdParty) {
 		thirdPartyEmployees.push_back(ThirdPartyEmployee(firstName, secondName, egn, age, role, password));
 		int index = thirdPartyEmployees.getSize() - 1;
 		for (int i = 0; i < banks.getSize(); i++) {
-			thirdPartyEmployees[index].addBank(banks[i].getBankName());
+			thirdPartyEmployees[index].addBank(this->getBankByName(banks[i].getBankName()));
 		}
 	}
 	else {
@@ -95,8 +98,8 @@ void BankingSystem::login(const MyString& firstName, const MyString& secondName,
 	if (currentClient != nullptr || currentEmployee != nullptr || currentThirdParty != nullptr) {
 		throw std::exception("Can only have one logged person at a time");
 	}
-	int index=-1;
-	MyString type = getType(firstName, secondName, password,index);
+	int index = -1;
+	MyString type = getType(firstName, secondName, password, index);
 
 	if (type == Roles::client) {
 		currentClient = &clients[index];
@@ -183,7 +186,7 @@ void BankingSystem::employeeDisapprove(size_t idx, const MyString& message) {
 	if (currentEmployee == nullptr) {
 		throw std::exception("Not logged in");
 	}
-	currentEmployee->disapprove(idx,message);
+	currentEmployee->disapprove(idx, message);
 }
 
 void BankingSystem::employeeValidate(size_t idx) {

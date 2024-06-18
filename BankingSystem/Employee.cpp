@@ -3,13 +3,15 @@
 
 Employee::Employee(const MyString& firstName, const MyString& secondName, const MyString& egn, size_t age, const MyString& role, const MyString& password, const MyString& bankName) : User(firstName, secondName, egn, age, role, password)
 {
-
-	bank = BankingSystem::getBankByName(bankName);
-	bank->getEmployees().push_back(this);
+	
 }
 
 const MyString& Employee::getBankAssociated() const {
 	return bankAssociated;
+}
+
+void Employee::setBank(Bank* bank) {
+	this->bank = bank;
 }
 
 void Employee::addTask(Request* request)
@@ -51,6 +53,8 @@ void Employee::approve(size_t idx)
 
 		this->tasks.erase(idx);
 	}
+
+	bank->deleteRequest(idx);
 }
 
 void Employee::disapprove(size_t idx, const MyString& message) {
@@ -100,12 +104,12 @@ MyVector<Request*> Employee::getTasks() {
 
 void Employee::printTasks() const {
 	if (tasks.empty()) {
-		std::cout << "No tasks to print!";
+		std::cout << "No tasks to print!"<<std::endl;
 	}
 	size_t count = tasks.getSize();
 
 	for (size_t i = 0; i < count; i++) {
-		std::cout << "[" << i << "] ";
+		std::cout << "[" << (i+1) << "] ";
 		tasks[i]->printRequest();
 	}
 }

@@ -28,7 +28,7 @@ public:
 	virtual void help() const override;
 	virtual void whoami() const override;
 	virtual void exit() const override;
-	void addBank(const MyString& bankName);
+	void addBank(Bank* bank);
 
 	~ThirdPartyEmployee() = default;
 };

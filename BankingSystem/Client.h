@@ -31,12 +31,12 @@ public:
 
 	Message* getMessageAtIndex(size_t index);
 	void receiveCheck(const Check& check);
-	void addBank(const MyString& bankName);
+	void addBank(Bank* bank);
 
 	void check_avl(const MyString& bankName, size_t accountNumber) const;
 	void open(const MyString& bankName);
 	void close(const MyString& bankName, size_t accountNumber);
-	void redeem(const MyString& bankName, size_t accountNumber,const MyString& verificationCode);
+	void redeem(const MyString& bankName, size_t accountNumber, const MyString& verificationCode);
 	void change(const MyString& newBankName, const MyString& currentBankName, size_t accountNumber);
 	void list(const MyString& bankName) const;
 	void messages() const;

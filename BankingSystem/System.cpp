@@ -104,11 +104,13 @@ void run() {
 		else if (command == "view") {
 			unsigned idx;
 			std::cin >> idx;
+			idx--;
 			b.employeeView(idx);
 		}
 		else if (command == "approve") {
 			unsigned idx;
 			std::cin >> idx;
+			idx--;
 			b.employeeApprove(idx);
 		}
 		else if (command == "disapprove") {
@@ -116,11 +118,13 @@ void run() {
 			std::cin >> idx;
 			MyString content;
 			std::cin >> content;
+			idx--;
 			b.employeeDisapprove(idx, content);
 		}
 		else if (command == "validate") {
 			unsigned idx;
 			std::cin >> idx;
+			idx--;
 			b.employeeValidate(idx);
 		}
 		else if (command == "send_check") {

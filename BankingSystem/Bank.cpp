@@ -153,6 +153,10 @@ void Bank::sendAnswerToClient(const Message& message, Client* client)
 void Bank::printAccounts() const {
 	size_t count = accounts.getSize();
 
+	if (count == 0) {
+		std::cout << "No accounts available" << std::endl;
+	}
+
 	for (size_t i = 0; i < count; i++) {
 		accounts[i].printAccount();
 	}
@@ -198,4 +202,12 @@ bool Bank::checkClient(Client* client) const {
 
 void Bank::addClient(Client* client) {
 	clients.push_back(client);
+}
+
+void Bank::addEmployee(Employee* employee) {
+	employees.push_back(employee);
+}
+
+void Bank::deleteRequest(size_t index) {
+	requests.erase(index);
 }

@@ -30,8 +30,8 @@ int ThirdPartyEmployee::getBankIndex(const MyString& bankName) const {
 	return -1;
 }
 
-void ThirdPartyEmployee::addBank(const MyString& bankName) {
-	banks.push_back(BankingSystem::getBankByName(bankName));
+void ThirdPartyEmployee::addBank(Bank* bank) {
+	banks.push_back(bank);
 }
 
 Client* ThirdPartyEmployee::getClient(const MyString& bankName,const MyString& egn) const {

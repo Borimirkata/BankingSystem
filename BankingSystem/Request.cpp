@@ -50,7 +50,7 @@ void Request::printRequest() const {
 		std::cout <<getType()<<" - "<< client->getFirstName() << " " << client->getSecondName() << " wants to close an account with id:"<<getAccountNum() << std::endl;
 	}
 	else if (getType() == type3 || isSubstring(getType(),approvedChange)) {
-		std::cout << getType() << " - " << client->getFirstName() << " " << client->getSecondName() << " wants to join "<<getNameOfBank()<<std::endl;
+		std::cout << getType() << " - " << client->getFirstName() << " " << client->getSecondName() << " wants to join your bank!"<<std::endl;
 	}
 }
 

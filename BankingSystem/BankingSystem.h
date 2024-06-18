@@ -20,7 +20,7 @@ class ThirdPartyEmployee;
 
 class BankingSystem {
 private:
-	static MyVector<Bank> banks;
+	MyVector<Bank> banks;
 	MyVector<Client> clients;
 	MyVector<Employee> employees;
 	MyVector<ThirdPartyEmployee> thirdPartyEmployees;
@@ -29,19 +29,19 @@ private:
 	Employee* currentEmployee = nullptr;
 	ThirdPartyEmployee* currentThirdParty = nullptr;
 
-	bool validateClient(const MyString& firstName, const MyString& secondName, const MyString& password,int& index) const;			
-	bool validateEmployee(const MyString& firstName, const MyString& secondName, const MyString& password,int& index) const;				
-	bool validateThirdPartyEmployee(const MyString& firstName, const MyString& secondName, const MyString& password,int& index) const;
-	const MyString& getType(const MyString& firstName,const MyString& secondName,const MyString& password,int& index) const;
+	bool validateClient(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const;
+	bool validateEmployee(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const;
+	bool validateThirdPartyEmployee(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const;
+	const MyString& getType(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const;
 
 public:
 	BankingSystem() = default;
 
-	void signup(const MyString& firstName, const MyString& secondName, const MyString& egn, int age, const MyString& role, const MyString& password, const MyString& bankName,const MyString& address);
+	void signup(const MyString& firstName, const MyString& secondName, const MyString& egn, int age, const MyString& role, const MyString& password, const MyString& bankName, const MyString& address);
 	void login(const MyString& firstName, const MyString& secondName, const MyString& password);
 	void createBank(const MyString& bankName);
 
-	static Bank* getBankByName(const MyString& bankName);
+	Bank* getBankByName(const MyString& bankName);
 
 	void clientCheckAvl(const MyString& bankName, size_t accountNumber) const;
 	void clientOpen(const MyString& bankName);
