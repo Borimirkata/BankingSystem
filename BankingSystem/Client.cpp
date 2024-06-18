@@ -55,7 +55,7 @@ void Client::close(const MyString& bankName, size_t accountNumber) {
 void Client::change(const MyString& newBankName, const MyString& currentBankName, size_t accountNumber) {
 	int indexCurrent = getBankIndex(currentBankName);
 	int indexNew = getBankIndex(newBankName);
-	//right now the indexNew will always be -1,because the newBank is not added in the banks!!!
+
 	if (indexCurrent == -1 || indexNew == -1) {
 		throw std::exception("Incorrect bank names!");
 	}

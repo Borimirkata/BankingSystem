@@ -12,6 +12,7 @@ namespace Roles {
 	const MyString thirdParty = "Third-party employee";
 }
 
+class Request;
 class Bank;
 class Client;
 class Employee;
@@ -27,12 +28,6 @@ private:
 	Client* currentClient = nullptr;
 	Employee* currentEmployee = nullptr;
 	ThirdPartyEmployee* currentThirdParty = nullptr;
-	Bank* currentBank = nullptr;
-
-	int getClientIndex(const MyString& egn) const;
-	int getEmployeeIndex(const MyString& egn) const;
-	int getThirdEmployeeIndex(const MyString& egn) const;
-	int getBankIndex(const MyString& bankName) const;
 
 	bool validateClient(const MyString& firstName, const MyString& secondName, const MyString& password,int& index) const;			
 	bool validateEmployee(const MyString& firstName, const MyString& secondName, const MyString& password,int& index) const;				
@@ -47,6 +42,26 @@ public:
 	void createBank(const MyString& bankName);
 
 	static Bank* getBankByName(const MyString& bankName);
+
+	void clientCheckAvl(const MyString& bankName, size_t accountNumber) const;
+	void clientOpen(const MyString& bankName);
+	void clientClose(const MyString& bankName, size_t accountNumber);
+	void clientRedeem(const MyString& bankName, size_t accountNumber, const MyString& verificationCode);
+	void clientChange(const MyString& newBankName, const MyString& currentBankName, size_t accountNumber);
+	void clientList(const MyString& bankName) const;
+	void clientMessages() const;
+
+	void employeeAddTask(Request* request);
+	void employeePrintTasks() const;
+	void employeeView(size_t idx) const;
+	void employeeApprove(size_t idx);
+	void employeeDisapprove(size_t idx, const MyString& message);
+	void employeeValidate(size_t idx);
+
+	void thirdPartySendCheck(double sum, const MyString& bankName, const MyString& code, const MyString& egn);
+
+	void userHelp() const;
+	void userWhoami() const;
 
 	void quit();
 	void exit();

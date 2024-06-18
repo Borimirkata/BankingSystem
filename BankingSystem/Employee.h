@@ -16,7 +16,7 @@ class Employee :public User {
 private:
 	MyString bankAssociated = "Unknown";
 	MyVector<Request*> tasks;
-	Bank* bank;
+	Bank* bank=nullptr;
 
 public:
 	Employee() = default;

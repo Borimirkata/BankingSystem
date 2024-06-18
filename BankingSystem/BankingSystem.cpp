@@ -2,50 +2,6 @@
 
 MyVector<Bank> BankingSystem::banks;
 
-int BankingSystem::getClientIndex(const MyString& egn) const {
-	int count = clients.getSize();
-
-	for (int i = 0; i < count; i++) {
-		if (clients[i].getEgn() == egn) {
-			return i;
-		}
-	}
-	return -1;
-}
-
-int BankingSystem::getEmployeeIndex(const MyString& egn) const {
-	int count = employees.getSize();
-
-	for (int i = 0; i < count; i++) {
-		if (employees[i].getEgn() == egn) {
-			return i;
-		}
-	}
-	return -1;
-}
-
-int BankingSystem::getThirdEmployeeIndex(const MyString& egn) const {
-	int count = thirdPartyEmployees.getSize();
-
-	for (int i = 0; i < count; i++) {
-		if (thirdPartyEmployees[i].getEgn() == egn) {
-			return i;
-		}
-	}
-	return -1;
-}
-
-int BankingSystem::getBankIndex(const MyString& bankName) const {
-	int count = banks.getSize();
-
-	for (int i = 0; i < count; i++) {
-		if (banks[i].getBankName() == bankName) {
-			return i;
-		}
-	}
-	return -1;
-}
-
 void BankingSystem::createBank(const MyString& bankName) {
 	banks.push_back(Bank(bankName));
 }
@@ -153,14 +109,145 @@ void BankingSystem::login(const MyString& firstName, const MyString& secondName,
 	}
 }
 
+void BankingSystem::clientCheckAvl(const MyString& bankName, size_t accountNumber) const {
+	if (currentClient == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentClient->check_avl(bankName, accountNumber);
+}
+
+void BankingSystem::clientOpen(const MyString& bankName) {
+	if (currentClient == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentClient->open(bankName);
+}
+
+void BankingSystem::clientClose(const MyString& bankName, size_t accountNumber) {
+	if (currentClient == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentClient->close(bankName, accountNumber);
+}
+
+void BankingSystem::clientRedeem(const MyString& bankName, size_t accountNumber, const MyString& verificationCode) {
+	if (currentClient == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentClient->redeem(bankName, accountNumber, verificationCode);
+}
+
+void BankingSystem::clientChange(const MyString& newBankName, const MyString& currentBankName, size_t accountNumber) {
+	if (currentClient == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentClient->change(newBankName, currentBankName, accountNumber);
+}
+
+void BankingSystem::clientList(const MyString& bankName) const {
+	if (currentClient == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentClient->list(bankName);
+}
+
+void BankingSystem::clientMessages() const {
+	if (currentClient == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentClient->messages();
+}
+
+void BankingSystem::employeeAddTask(Request* request) {
+	if (currentEmployee == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentEmployee->addTask(request);
+}
+
+void BankingSystem::employeePrintTasks() const {
+	if (currentEmployee == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentEmployee->printTasks();
+}
+
+void BankingSystem::employeeView(size_t idx) const {
+	if (currentEmployee == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentEmployee->view(idx);
+}
+
+void BankingSystem::employeeApprove(size_t idx) {
+	if (currentEmployee == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentEmployee->approve(idx);
+}
+
+void BankingSystem::employeeDisapprove(size_t idx, const MyString& message) {
+	if (currentEmployee == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentEmployee->disapprove(idx,message);
+}
+
+void BankingSystem::employeeValidate(size_t idx) {
+	if (currentEmployee == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentEmployee->validate(idx);
+}
+
+void BankingSystem::thirdPartySendCheck(double sum, const MyString& bankName, const MyString& code, const MyString& egn) {
+	if (currentThirdParty == nullptr) {
+		throw std::exception("Not logged in");
+	}
+	currentThirdParty->send_check(sum, bankName, code, egn);
+}
+
+void BankingSystem::userHelp() const {
+	if (currentClient != nullptr) {
+		currentClient->help();
+	}
+	else if (currentEmployee != nullptr) {
+		currentEmployee->help();
+	}
+	else if (currentThirdParty != nullptr) {
+		currentThirdParty->help();
+	}
+	else {
+		throw std::exception("Not logged in");
+	}
+}
+
+void BankingSystem::userWhoami() const {
+	if (currentClient != nullptr) {
+		currentClient->whoami();
+	}
+	else if (currentEmployee != nullptr) {
+		currentEmployee->whoami();
+	}
+	else if (currentThirdParty != nullptr) {
+		currentThirdParty->whoami();
+	}
+	else {
+		throw std::exception("Not logged in");
+	}
+}
+
 void BankingSystem::exit() {
 	if (currentClient != nullptr) {
+		currentClient->exit();
 		currentClient = nullptr;
 	}
 	else if (currentEmployee != nullptr) {
+		currentEmployee->exit();
 		currentEmployee = nullptr;
 	}
 	else if (currentThirdParty != nullptr) {
+		currentThirdParty->exit();
 		currentThirdParty = nullptr;
 	}
 	else {
@@ -169,7 +256,6 @@ void BankingSystem::exit() {
 }
 
 void BankingSystem::quit() {
-	currentBank = nullptr;
 	currentClient = nullptr;
 	currentEmployee = nullptr;
 	currentThirdParty = nullptr;

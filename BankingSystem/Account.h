@@ -12,7 +12,7 @@ class Account {
 private:
 	size_t accountNumber = 0;
 	double balance = 0;
-	Client* client;
+	Client* client=nullptr;
 
 public:
 	Account() = default;
