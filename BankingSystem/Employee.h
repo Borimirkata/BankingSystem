@@ -31,6 +31,8 @@ public:
 
 	MyVector<Request*> getTasks();
 
+	const MyString& getBankAssociated() const;
+
 	virtual void help() const override;
 	virtual void whoami() const override;
 	virtual void exit() const override;

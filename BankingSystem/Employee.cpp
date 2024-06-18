@@ -8,6 +8,10 @@ Employee::Employee(const MyString& firstName, const MyString& secondName, const 
 	bank->getEmployees().push_back(this);
 }
 
+const MyString& Employee::getBankAssociated() const {
+	return bankAssociated;
+}
+
 void Employee::addTask(Request* request)
 {
 	tasks.push_back(request);

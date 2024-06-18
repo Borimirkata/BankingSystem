@@ -158,13 +158,6 @@ void BankingSystem::clientMessages() const {
 	currentClient->messages();
 }
 
-void BankingSystem::employeeAddTask(Request* request) {
-	if (currentEmployee == nullptr) {
-		throw std::exception("Not logged in");
-	}
-	currentEmployee->addTask(request);
-}
-
 void BankingSystem::employeePrintTasks() const {
 	if (currentEmployee == nullptr) {
 		throw std::exception("Not logged in");

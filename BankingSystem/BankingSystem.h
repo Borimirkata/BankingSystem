@@ -51,7 +51,6 @@ public:
 	void clientList(const MyString& bankName) const;
 	void clientMessages() const;
 
-	void employeeAddTask(Request* request);
 	void employeePrintTasks() const;
 	void employeeView(size_t idx) const;
 	void employeeApprove(size_t idx);
