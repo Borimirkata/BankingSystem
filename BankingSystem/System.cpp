@@ -117,8 +117,10 @@ void run() {
 			unsigned idx;
 			std::cin >> idx;
 			std::cin.ignore();
-			MyString content;
-			std::cin >> content;
+			char buff[1024];
+			std::cin.ignore();
+			std::cin.getline(buff, 1024);
+			MyString content = buff;
 			idx--;
 			b.employeeDisapprove(idx, content);
 		}

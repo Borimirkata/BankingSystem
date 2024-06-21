@@ -1,5 +1,6 @@
 #pragma once
 #include "MyString.h"
+#include "SerializeFunctions.h"
 
 namespace UserData{
 	const size_t MIN_AGE = 18;
@@ -13,7 +14,6 @@ namespace {
 	const MyString approvedChange = "(approved)";
 
 }
-//this namespace is like a global one because everyone uses them
 
 class User {
 protected:
@@ -39,6 +39,9 @@ public:
 	virtual void help() const = 0;
 	virtual void whoami() const = 0;
 	virtual void exit() const = 0;
+
+	void writeToFile(std::ofstream& ofs) const;
+	void readFromFile(std::ifstream& ifs);
 
 	virtual ~User() = default;
 };

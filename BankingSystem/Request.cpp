@@ -73,3 +73,17 @@ void Request::setMoney(double money) {
 Request::~Request() {
 	client = nullptr;
 }
+
+void Request::writeToFile(std::ofstream& ofs) const {
+	writeStringToFile(ofs, type);
+	writeStringToFile(ofs, nameBank);
+	ofs.write((const char*)&accountNum, sizeof(int));
+	ofs.write((const char*)&money, sizeof(double));
+}
+
+void Request::readFromFile(std::ifstream& ifs) {
+	type = readStringFromFile(ifs);
+	nameBank = readStringFromFile(ifs);
+	ifs.read((char*)&accountNum, sizeof(int));
+	ifs.read((char*)&money, sizeof(double));
+}

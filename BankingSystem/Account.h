@@ -25,5 +25,8 @@ public:
 	void setAccountNumber(size_t accountNumber);
 	void setBalance(double balance);
 
+	void writeToFile(std::ofstream& ofs) const;
+	void readFromFile(std::ifstream& ifs);
+
 	~Account();
 };

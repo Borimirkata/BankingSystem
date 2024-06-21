@@ -30,3 +30,21 @@ const MyString& User::getRole() const {
 const MyString& User::getPassword() const {
 	return password;
 }
+
+void User::writeToFile(std::ofstream& ofs) const {
+	writeStringToFile(ofs,firstName);
+	writeStringToFile(ofs, secondName);
+	writeStringToFile(ofs, egn);
+	ofs.write((const char*)&age, sizeof(size_t));
+	writeStringToFile(ofs, role);
+	writeStringToFile(ofs, password);
+}
+
+void User::readFromFile(std::ifstream& ifs) {
+	firstName = readStringFromFile(ifs);
+	secondName = readStringFromFile(ifs);
+	egn = readStringFromFile(ifs);
+	ifs.read((char*)&age, sizeof(size_t));
+	role = readStringFromFile(ifs);
+	password = readStringFromFile(ifs);
+}

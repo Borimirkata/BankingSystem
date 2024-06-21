@@ -1,6 +1,7 @@
 #pragma once
 #include "MyString.h"
 #include "HelperFunctions.h"
+#include "SerializeFunctions.h"
 
 namespace MessageData {
 	constexpr int VALUE = -1;
@@ -29,6 +30,9 @@ public:
 	void setContent(const MyString& content);
 
 	void printMessage() const;
+
+	void writeToFile(std::ofstream& ofs) const;
+	void readFromFile(std::ifstream& ifs);
 
 	~Message() = default;
 };

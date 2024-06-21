@@ -75,6 +75,11 @@ void Employee::view(size_t index) const{
 	std::cout << "Name: " << client->getFirstName() << " " << client->getSecondName() << std::endl;
 	std::cout << "EGN: " << client->getEgn() << std::endl;
 	std::cout << "Age: " << client->getAge() << std::endl;
+
+	if (req->getType() == type3) {
+		std::cout << "Bank: " << client->getBank(req->getNameOfBank())->getBankName()<<std::endl;
+		std::cout << "Account number: " << req->getAccountNum() << std::endl;
+	}
 }
 
 void Employee::validate(size_t index) {
@@ -144,4 +149,30 @@ Employee::~Employee() {
 
 void Employee::exit() const {
 	std::cout << getRole() << ": " << getFirstName() << " " << getSecondName() << " exited!" << std::endl;
+}
+
+void Employee::writeToFile(std::ofstream& ofs) const {
+	User::writeToFile(ofs);
+	writeStringToFile(ofs, bankAssociated);
+
+	size_t tasksCount = tasks.getSize();
+	ofs.write((const char*)&tasksCount, sizeof(size_t));
+
+	for (size_t i = 0; i < tasksCount; i++) {
+		tasks[i]->writeToFile(ofs);
+	}
+}
+
+void Employee::readFromFile(std::ifstream& ifs) {
+	User::readFromFile(ifs);
+	bankAssociated = readStringFromFile(ifs);
+
+	size_t taskCount = 0;
+	ifs.read((char*)&taskCount, sizeof(size_t));
+
+	for (size_t i = 0; i < taskCount; i++) {
+		Request* taskToRead=nullptr;
+		taskToRead->readFromFile(ifs);
+		tasks.push_back(taskToRead);
+	}
 }

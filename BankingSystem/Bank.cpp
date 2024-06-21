@@ -172,8 +172,8 @@ int Bank::getEmployeeWithLeastTasks() const {
 		throw std::exception("There are no employees to give out tasks to!");
 	}
 	int indexToReturn = 0;
-	int count = employees.getSize();
-	int minTasks = employees[0]->getTasks().getSize();
+	size_t count = employees.getSize();
+	size_t minTasks = employees[0]->getTasks().getSize();
 
 	for (int i = 1; i < count; i++) {
 		if (employees[i]->getTasks().getSize() < minTasks) {
@@ -187,7 +187,7 @@ int Bank::getEmployeeWithLeastTasks() const {
 bool Bank::validateClient(Client* client) const {
 	size_t clientCount = clients.getSize();
 
-	for (int i = 0; i < clientCount; i++) {
+	for (size_t i = 0; i < clientCount; i++) {
 		if (clients[i]->getFirstName() == client->getFirstName() && clients[i]->getSecondName() == client->getSecondName()
 			&& clients[i]->getEgn() == client->getEgn() && clients[i]->getAge() == client->getAge()) {
 			return true;
@@ -210,4 +210,68 @@ void Bank::addEmployee(Employee* employee) {
 
 void Bank::deleteRequest(size_t index) {
 	requests.erase(index);
+}
+
+void Bank::writeToFile(std::ofstream& ofs) const {
+	writeStringToFile(ofs, bankName);
+
+	size_t accountsSize = accounts.getSize();
+	ofs.write((const char*)&accountsSize, sizeof(size_t));
+	for (size_t i = 0; i < accountsSize; i++) {
+		accounts[i].writeToFile(ofs);
+	}
+
+	size_t requestsSize = requests.getSize();
+	ofs.write((const char*)&requestsSize, sizeof(size_t));
+	for (size_t i = 0; i < requestsSize; i++) {
+		requests[i].writeToFile(ofs);
+	}
+
+	size_t clientsSize = clients.getSize();
+	ofs.write((const char*)&clientsSize, sizeof(size_t));
+	for (size_t i = 0; i < clientsSize; i++) {
+		clients[i]->writeToFile(ofs);
+	}
+
+	size_t employeesSize = employees.getSize();
+	ofs.write((const char*)&employeesSize, sizeof(size_t));
+	for (size_t i = 0; i < employeesSize; i++) {
+		employees[i]->writeToFile(ofs);
+	}
+
+}
+void Bank::readFromFile(std::ifstream& ifs) {
+	bankName=readStringFromFile(ifs);
+
+	size_t accountsSize=0;
+	ifs.read((char*)&accountsSize, sizeof(size_t));
+	for (size_t i = 0; i < accountsSize; i++) {
+		Account accountToRead;
+		accountToRead.readFromFile(ifs);
+		accounts.push_back(accountToRead);
+	}
+
+	size_t requestsSize =0;
+	ifs.read((char*)&requestsSize, sizeof(size_t));
+	for (size_t i = 0; i < requestsSize; i++) {
+		Request requestToRead;
+		requestToRead.readFromFile(ifs);
+		requests.push_back(requestToRead);
+	}
+
+	size_t clientsSize = 0;
+	ifs.read((char*)&clientsSize, sizeof(size_t));
+	for (size_t i = 0; i < clientsSize; i++) {
+		Client* clientToRead=nullptr;
+		clientToRead->readFromFile(ifs);
+		clients.push_back(clientToRead);
+	}
+
+	size_t employeesSize = 0;
+	ifs.read((char*)&employeesSize, sizeof(size_t));
+	for (size_t i = 0; i < employeesSize; i++) {
+		Employee* employeeToRead = nullptr;
+		employeeToRead->readFromFile(ifs);
+		employees.push_back(employeeToRead);
+	}
 }

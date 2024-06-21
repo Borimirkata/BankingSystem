@@ -5,13 +5,13 @@ ThirdPartyEmployee::ThirdPartyEmployee(const MyString& firstName, const MyString
 }
 
 bool ThirdPartyEmployee::validateCode(const MyString& code) const {
-	int length = code.length();
+	size_t length = code.length();
 
 	if (length != ThirdPartyData::SIZE) {
 		throw std::exception("Code's length has to be 3");
 	}
 	
-	for (int i = 0; i < length; i++) {
+	for (size_t i = 0; i < length; i++) {
 		if ((!isDigit(code[i])) && (!isLowerCase(code[i])) && (!isUpperCase(code[i]))) {
 			return false;
 		}
@@ -37,7 +37,7 @@ void ThirdPartyEmployee::addBank(Bank* bank) {
 Client* ThirdPartyEmployee::getClient(const MyString& bankName,const MyString& egn) const {
 	int index = getBankIndex(bankName);
 	Bank* currBank = banks[index];
-	Client* currClient = currBank->getClient(egn);//here it breaks
+	Client* currClient = currBank->getClient(egn);
 	return currClient;
 }
 
@@ -80,4 +80,13 @@ void ThirdPartyEmployee::whoami() const {
 
 void ThirdPartyEmployee::exit() const {
 	std::cout << getRole() << ": " << getFirstName() << " " << getSecondName() << " exited!" << std::endl;
+}
+
+void ThirdPartyEmployee::writeToFile(std::ofstream& ofs) const {
+	User::writeToFile(ofs);
+
+}
+
+void ThirdPartyEmployee::readFromFile(std::ifstream& ifs) {
+	User::readFromFile(ifs);
 }

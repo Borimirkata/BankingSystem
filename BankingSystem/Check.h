@@ -1,5 +1,6 @@
 #pragma once
 #include "MyString.h"
+#include "SerializeFunctions.h"
 
 namespace CheckData {
 	constexpr int NULL_VALUE = 0;
@@ -18,6 +19,10 @@ public:
 	const MyString& getCode() const;
 
 	void setSum(double sum);
+	void setCode(const MyString& code);
+
+	void writeToFile(std::ofstream& ofs) const;
+	void readFromFile(std::ifstream& ifs);
 
 	~Check() = default;
 

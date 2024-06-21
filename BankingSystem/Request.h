@@ -39,5 +39,8 @@ public:
 
 	Client* getClient() const;
 
+	void writeToFile(std::ofstream& ofs) const;
+	void readFromFile(std::ifstream& ifs);
+
 	~Request();
 };

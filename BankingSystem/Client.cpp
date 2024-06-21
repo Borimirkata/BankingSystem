@@ -162,3 +162,47 @@ void Client::exit() const {
 	std::cout << getRole() << ": " << getFirstName() << " " << getSecondName() << " exited!" << std::endl;
 }
 
+void Client::writeToFile(std::ofstream& ofs) const {
+	User::writeToFile(ofs);
+
+	writeStringToFile(ofs,address);
+
+	size_t count = checks.getSize();
+	ofs.write((const char*)&count, sizeof(size_t));
+
+	for (size_t i = 0; i < count; i++) {
+		checks[i].writeToFile(ofs);
+	}
+
+	size_t countMessage = message.getSize();
+	ofs.write((const char*)&countMessage, sizeof(size_t));
+
+	for (size_t i = 0; i < countMessage; i++) {
+		message[i].writeToFile(ofs);
+	}
+}
+
+void Client::readFromFile(std::ifstream& ifs) {
+	User::readFromFile(ifs);
+
+	address = readStringFromFile(ifs);
+
+	size_t checksCount=0;
+	ifs.read((char*)&checksCount, sizeof(size_t));
+
+	for (size_t i = 0; i < checksCount; i++) {
+		Check checkToRead;
+		checkToRead.readFromFile(ifs);
+		checks.push_back(checkToRead);
+	}
+
+	size_t messageCount = 0;
+	ifs.read((char*)&messageCount, sizeof(size_t));
+
+	for (size_t i = 0; i < messageCount; i++) {
+		Message messageToRead;
+		messageToRead.readFromFile(ifs);
+		message.push_back(messageToRead);
+	}
+}
+

@@ -17,9 +17,34 @@ Bank* BankingSystem::getBankByName(const MyString& bankName)
 	return nullptr;
 }
 
+bool BankingSystem::isUniquePerson(const MyString& firstName, const MyString& secondName, const MyString& egn) const {
+	size_t clientsCount = clients.getSize();
+	for (size_t i = 0; i < clientsCount; i++) {
+		if ((clients[i].getFirstName() == firstName && clients[i].getSecondName() == secondName) || (clients[i].getEgn()==egn)) {
+			return false;
+		}
+	}
+
+	size_t employeesCount =employees.getSize();
+	for (size_t i = 0; i < employeesCount; i++) {
+		if ((employees[i].getFirstName() == firstName && employees[i].getSecondName() == secondName) || (employees[i].getEgn() == egn)) {
+			return false;
+		}
+	}
+
+	size_t thirdPartyCount = thirdPartyEmployees.getSize();
+	for (size_t i = 0; i < thirdPartyCount; i++) {
+		if ((thirdPartyEmployees[i].getFirstName() == firstName && thirdPartyEmployees[i].getSecondName() == secondName) || (thirdPartyEmployees[i].getEgn() == egn)) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 bool BankingSystem::validateClient(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const {
-	int clientsCount = clients.getSize();
-	for (int i = 0; i < clientsCount; i++) {
+	size_t clientsCount = clients.getSize();
+	for (size_t i = 0; i < clientsCount; i++) {
 		if (clients[i].getFirstName() == firstName && clients[i].getSecondName() == secondName && clients[i].getPassword() == password) {
 			index = i;
 			return true;
@@ -29,8 +54,8 @@ bool BankingSystem::validateClient(const MyString& firstName, const MyString& se
 }
 
 bool BankingSystem::validateEmployee(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const {
-	int employeeCount = employees.getSize();
-	for (int i = 0; i < employeeCount; i++) {
+	size_t employeeCount = employees.getSize();
+	for (size_t i = 0; i < employeeCount; i++) {
 		if (employees[i].getFirstName() == firstName && employees[i].getSecondName() == secondName && employees[i].getPassword() == password) {
 			index = i;
 			return true;
@@ -40,8 +65,8 @@ bool BankingSystem::validateEmployee(const MyString& firstName, const MyString& 
 }
 
 bool BankingSystem::validateThirdPartyEmployee(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const {
-	int thirdPartyEmployeeCount = thirdPartyEmployees.getSize();
-	for (int i = 0; i < thirdPartyEmployeeCount; i++) {
+	size_t thirdPartyEmployeeCount = thirdPartyEmployees.getSize();
+	for (size_t i = 0; i < thirdPartyEmployeeCount; i++) {
 		if (thirdPartyEmployees[i].getFirstName() == firstName && thirdPartyEmployees[i].getSecondName() == secondName && thirdPartyEmployees[i].getPassword() == password) {
 			index = i;
 			return true;
@@ -66,6 +91,10 @@ const MyString& BankingSystem::getType(const MyString& firstName, const MyString
 }
 
 void BankingSystem::signup(const MyString& firstName, const MyString& secondName, const MyString& egn, int age, const MyString& role, const MyString& password, const MyString& bankName, const MyString& address) {
+	if (!isUniquePerson(firstName, secondName, egn)) {
+		throw std::exception("Person with this egn or these names already exists.");
+	}
+
 	if (role == Roles::client) {
 		clients.push_back(Client(firstName, secondName, egn, age, role, password, address));
 		int index = clients.getSize() - 1;
@@ -77,7 +106,7 @@ void BankingSystem::signup(const MyString& firstName, const MyString& secondName
 	}
 	else if (role == Roles::employee) {
 		employees.push_back(Employee(firstName, secondName, egn, age, role, password, bankName));
-		int index = employees.getSize() - 1;
+		size_t index = employees.getSize() - 1;
 		Bank* bank = this->getBankByName(bankName);
 
 		if (bank == nullptr) {
@@ -90,7 +119,7 @@ void BankingSystem::signup(const MyString& firstName, const MyString& secondName
 	}
 	else if (role == Roles::thirdParty) {
 		thirdPartyEmployees.push_back(ThirdPartyEmployee(firstName, secondName, egn, age, role, password));
-		int index = thirdPartyEmployees.getSize() - 1;
+		size_t index = thirdPartyEmployees.getSize() - 1;
 		for (int i = 0; i < banks.getSize(); i++) {
 			thirdPartyEmployees[index].addBank(this->getBankByName(banks[i].getBankName()));
 		}
@@ -259,7 +288,94 @@ void BankingSystem::exit() {
 }
 
 void BankingSystem::quit() {
-	currentClient = nullptr;
+	if (currentClient != nullptr || currentEmployee != nullptr || currentThirdParty != nullptr) {
+		throw std::exception("One account is still logged in!!!");
+	}
+}
+
+void BankingSystem::writeToFile() const {
+	std::ofstream ofs("Data.dat", std::ios::out | std::ios::binary);
+	if (!ofs.is_open()) {
+		throw std::exception("Not opened");
+	}
+
+	size_t banksCount = banks.getSize();
+	ofs.write((const char*)&banksCount, sizeof(size_t));
+	for (size_t i = 0; i < banksCount; i++) {
+		banks[i].writeToFile(ofs);
+	}
+
+	size_t clientsCount = clients.getSize();
+	ofs.write((const char*)&clientsCount, sizeof(size_t));
+	for (size_t i = 0; i < clientsCount; i++) {
+		clients[i].writeToFile(ofs);
+	}
+
+	size_t employeesCount = employees.getSize();
+	ofs.write((const char*)&employeesCount, sizeof(size_t));
+	for (size_t i = 0; i < employeesCount; i++) {
+		employees[i].writeToFile(ofs);
+	}
+
+	size_t thirdPartyCount = thirdPartyEmployees.getSize();
+	ofs.write((const char*)&thirdPartyCount, sizeof(size_t));
+	for (size_t i = 0; i < thirdPartyCount; i++) {
+		thirdPartyEmployees[i].writeToFile(ofs);
+	}
+
+	ofs.clear();
+	ofs.close();
+}
+
+void BankingSystem::readFromFile() {
+	std::ifstream ifs("Data.dat", std::ios::in | std::ios::binary);
+	if (!ifs.is_open()) {
+		throw std::exception("Not opened");
+	}
+
+	size_t banksCount = 0;
+	ifs.read((char*)&banksCount, sizeof(size_t));
+	for (size_t i = 0; i < banksCount; i++) {
+		Bank bankToRead;
+		bankToRead.readFromFile(ifs);
+		banks.push_back(bankToRead);
+	}
+
+	size_t clientsCount = 0;
+	ifs.read((char*)&clientsCount, sizeof(size_t));
+	for (size_t i = 0; i < clientsCount; i++) {
+		Client clientToRead;
+		clientToRead.readFromFile(ifs);
+		clients.push_back(clientToRead);
+	}
+
+	size_t employeesCount = 0;
+	ifs.read((char*)&employeesCount, sizeof(size_t));
+	for (size_t i = 0; i < employeesCount; i++) {
+		Employee employeeToRead;
+		employeeToRead.readFromFile(ifs);
+		employees.push_back(employeeToRead);
+	}
+
+	size_t thirdPartyCount = 0;
+	ifs.read((char*)&thirdPartyCount, sizeof(size_t));
+	for (size_t i = 0; i < thirdPartyCount; i++) {
+		ThirdPartyEmployee toRead;
+		toRead.readFromFile(ifs);
+		thirdPartyEmployees.push_back(toRead);
+	}
+
+	ifs.clear();
+	ifs.close();
+}
+
+BankingSystem::~BankingSystem() {
+	writeToFile();
+	delete currentClient;
+	delete currentEmployee;
+	delete currentThirdParty;
+
+	currentClient= nullptr;
 	currentEmployee = nullptr;
 	currentThirdParty = nullptr;
 }

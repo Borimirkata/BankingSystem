@@ -29,6 +29,8 @@ private:
 	Employee* currentEmployee = nullptr;
 	ThirdPartyEmployee* currentThirdParty = nullptr;
 
+	bool isUniquePerson(const MyString& firstName, const MyString& secondName, const MyString& egn) const;
+
 	bool validateClient(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const;
 	bool validateEmployee(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const;
 	bool validateThirdPartyEmployee(const MyString& firstName, const MyString& secondName, const MyString& password, int& index) const;
@@ -65,7 +67,9 @@ public:
 	void quit();
 	void exit();
 
+	void writeToFile() const;
+	void readFromFile();
 
-	~BankingSystem() = default;
+	~BankingSystem();
 
 };

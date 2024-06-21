@@ -2,7 +2,6 @@
 #include "User.h"
 #include "Message.h"
 #include "Bank.h"
-#include "BankingSystem.h"
 #include "Check.h"
 #include "ThirdPartyEmployee.h"
 
@@ -44,6 +43,9 @@ public:
 	virtual void help() const override;
 	virtual void whoami() const override;
 	virtual void exit() const override;
+
+	void writeToFile(std::ofstream& ofs) const;
+	void readFromFile(std::ifstream& ifs);
 
 	~Client() = default;
 };

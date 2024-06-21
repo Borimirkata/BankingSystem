@@ -1,9 +1,9 @@
 #pragma once
 
 #include "MyVector.hpp"
-#include "BankingSystem.h"
-#include "User.h";
+#include "User.h"
 #include "Bank.h"
+#include "SerializeFunctions.h"
 
 class Bank;
 class Request;
@@ -37,6 +37,9 @@ public:
 	virtual void help() const override;
 	virtual void whoami() const override;
 	virtual void exit() const override;
+
+	void writeToFile(std::ofstream& ofs) const;
+	virtual void readFromFile(std::ifstream& ifs);
 
 	~Employee();
 };

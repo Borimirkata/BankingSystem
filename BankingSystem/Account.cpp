@@ -32,6 +32,17 @@ void Account::printAccount() const {
 	std::cout << "* " << accountNumber << std::endl;
 }
 
+void Account::writeToFile(std::ofstream& ofs) const {
+	ofs.write((const char*)&accountNumber, sizeof(size_t));
+	ofs.write((const char*)&balance, sizeof(double));
+
+}
+
+void Account::readFromFile(std::ifstream& ifs) {
+	ifs.read((char*)&accountNumber, sizeof(size_t));
+	ifs.read((char*)&balance, sizeof(double));
+}
+
 Account::~Account() {
 	client = nullptr;
 }

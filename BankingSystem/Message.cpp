@@ -57,3 +57,19 @@ void Message::printMessage() const {
 		std::cout << "You changed your account to " << getBankName() << ". New account id is:" << getAccNumber() << std::endl;
 	}
 }
+
+void Message::writeToFile(std::ofstream& ofs) const {
+	writeStringToFile(ofs, from);
+	writeStringToFile(ofs, content);
+	writeStringToFile(ofs, bankName);
+	writeStringToFile(ofs, code);
+	ofs.write((const char*)&accNumber, sizeof(int));
+}
+
+void Message::readFromFile(std::ifstream& ifs) {
+	from = readStringFromFile(ifs);
+	content = readStringFromFile(ifs);
+	bankName = readStringFromFile(ifs);
+	code = readStringFromFile(ifs);
+	ifs.read((char*)&accNumber, sizeof(int));
+}
