@@ -116,6 +116,7 @@ void run() {
 		else if (command == "disapprove") {
 			unsigned idx;
 			std::cin >> idx;
+			std::cin.ignore();
 			MyString content;
 			std::cin >> content;
 			idx--;

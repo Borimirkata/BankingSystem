@@ -79,6 +79,11 @@ void BankingSystem::signup(const MyString& firstName, const MyString& secondName
 		employees.push_back(Employee(firstName, secondName, egn, age, role, password, bankName));
 		int index = employees.getSize() - 1;
 		Bank* bank = this->getBankByName(bankName);
+
+		if (bank == nullptr) {
+			throw std::exception("No bank with such name exists");
+		}
+
 		employees[index].setBank(bank);
 		Employee* employee = &employees[index];
 		bank->addEmployee(employee);

@@ -48,7 +48,7 @@ void Message::printMessage() const {
 		std::cout << "You closed an account in: " << getBankName() << std::endl;
 	}
 	else if (isSubstring(getContent(), "check")) {
-		std::cout << getContent() << getFrom() << "! Your verification code is: " << getCode() << std::endl;
+		std::cout << getContent() <<" "<<getFrom() << "! Your verification code is: " << getCode() << std::endl;
 	}
 	else if (isSubstring(getContent(), "Reason")) {
 		std::cout << "Your request has been disapproved from " << getFrom() << "." << getContent() << std::endl;

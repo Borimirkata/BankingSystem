@@ -26,7 +26,7 @@ void Employee::approve(size_t idx)
 	if (req->getType() == type1) {
 		srand(time(NULL));
 		unsigned id = rand();
-		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in ", bank->getBankName(),id), req->getClient());
+		bank->sendAnswerToClient(Message(this->getFirstName(), "You opened an account in ", bank->getBankName(), id), req->getClient());
 
 		bank->addAccount(id, START_BALANCE, req->getClient());
 
@@ -54,7 +54,10 @@ void Employee::approve(size_t idx)
 		this->tasks.erase(idx);
 	}
 
-	bank->deleteRequest(idx);
+
+	if (req->getType() != type3) {
+		bank->deleteRequest(idx);
+	}
 }
 
 void Employee::disapprove(size_t idx, const MyString& message) {
@@ -135,6 +138,7 @@ void Employee::whoami() const {
 }
 
 Employee::~Employee() {
+	delete bank;
 	bank = nullptr;
 }
 
