@@ -3,10 +3,15 @@
 #include "Message.h"
 #include "Bank.h"
 #include "Check.h"
-#include "ThirdPartyEmployee.h"
 
 class Bank;
-class ThirdPartyEmployee;
+
+
+namespace ClientData {
+	const MyString type1 = "Open";
+	const MyString type2 = "Close";
+	const MyString type3 = "Change";
+}
 
 class Client :public User {
 private:

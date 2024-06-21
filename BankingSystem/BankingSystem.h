@@ -64,7 +64,7 @@ public:
 	void userHelp() const;
 	void userWhoami() const;
 
-	void quit();
+	void quit() const;
 	void exit();
 
 	void writeToFile() const;

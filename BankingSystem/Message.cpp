@@ -12,14 +12,6 @@ Message::Message(const MyString& from, const MyString& content, const MyString& 
 	this->accNumber = number;
 }
 
-void Message::setFrom(const MyString& from) {
-	this->from = from;
-}
-
-void Message::setContent(const MyString& content) {
-	this->content = content;
-}
-
 const MyString& Message::getFrom() const {
 	return from;
 }
@@ -39,6 +31,7 @@ const MyString& Message::getCode() const {
 int Message::getAccNumber() const {
 	return accNumber;
 }
+
 void Message::printMessage() const {
 	if (isSubstring(getContent(), "opened")) {
 		std::cout << getContent() << getBankName() << "! Message from: " << getFrom() << std::endl;

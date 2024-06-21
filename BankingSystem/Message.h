@@ -26,8 +26,6 @@ public:
 	const MyString& getCode() const;
 
 	int getAccNumber() const;
-	void setFrom(const MyString& from);
-	void setContent(const MyString& content);
 
 	void printMessage() const;
 

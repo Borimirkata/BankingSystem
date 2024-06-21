@@ -5,17 +5,22 @@
 
 class Client;
 
-namespace ClientData{
+namespace RequestData {
 	constexpr int DEF_VALUE = 0;
+
+	const MyString type1 = "Open";
+	const MyString type2 = "Close";
+	const MyString type3 = "Change";
+	const MyString approvedChange = "(approved)";
 }
 
 class Request {
 private:
 	MyString type = "Unknown";
-	Client* client;
-	int accountNum = ClientData::DEF_VALUE;
+	Client* client=nullptr;
+	int accountNum = RequestData::DEF_VALUE;
 	MyString nameBank = "Unknown";
-	double money = ClientData::DEF_VALUE;
+	double money = RequestData::DEF_VALUE;
 
 public:
 

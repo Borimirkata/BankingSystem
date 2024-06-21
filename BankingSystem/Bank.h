@@ -8,6 +8,13 @@
 class Account;
 class Employee;
 
+namespace BankData {
+	const MyString type1 = "Open";
+	const MyString type2 = "Close";
+	const MyString type3 = "Change";
+	const MyString approvedChange = "(approved)";
+}
+
 class Bank {
 private:
 	MyString bankName = "Unknown";
@@ -43,15 +50,12 @@ public:
 	void deleteAccount(size_t accountNumber, Client* client);
 	void printAccounts() const;
 
-	void setBankName(const MyString& bankName);
-
 	void addEmployee(Employee* employee);
 
 	MyVector<Employee*>& getEmployees();
 	Client* getClient(const MyString& egn);
 	bool checkClient(Client* client) const;
 
-	Employee* getEmployeeByIndex(int idx);
 	Request* getRequestByIndex(int task_id);
 
 	const MyString& getBankName() const;

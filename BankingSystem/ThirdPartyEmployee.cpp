@@ -4,6 +4,24 @@ ThirdPartyEmployee::ThirdPartyEmployee(const MyString& firstName, const MyString
 	
 }
 
+int ThirdPartyEmployee::getBankIndex(const MyString& bankName) const {
+	size_t banksCount = banks.getSize();
+
+	for (size_t i = 0; i < banksCount; i++) {
+		if ((banks[i]->getBankName() == bankName)) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+Client* ThirdPartyEmployee::getClient(const MyString& bankName, const MyString& egn) const {
+	int index = getBankIndex(bankName);
+	Bank* currBank = banks[index];
+	Client* currClient = currBank->getClient(egn);
+	return currClient;
+}
+
 bool ThirdPartyEmployee::validateCode(const MyString& code) const {
 	size_t length = code.length();
 
@@ -19,26 +37,8 @@ bool ThirdPartyEmployee::validateCode(const MyString& code) const {
 	return true;
 }
 
-int ThirdPartyEmployee::getBankIndex(const MyString& bankName) const {
-	size_t banksCount = banks.getSize();
-
-	for (size_t i = 0; i < banksCount; i++) {
-		if ((banks[i]->getBankName() == bankName)) {
-			return i;
-		}
-	}
-	return -1;
-}
-
 void ThirdPartyEmployee::addBank(Bank* bank) {
 	banks.push_back(bank);
-}
-
-Client* ThirdPartyEmployee::getClient(const MyString& bankName,const MyString& egn) const {
-	int index = getBankIndex(bankName);
-	Bank* currBank = banks[index];
-	Client* currClient = currBank->getClient(egn);
-	return currClient;
 }
 
 void ThirdPartyEmployee::send_check(double sum, const MyString& bankName,const MyString& code, const MyString& egn) {

@@ -8,8 +8,13 @@
 class Bank;
 class Request;
 
-namespace {
+namespace EmployeeData {
 	constexpr size_t START_BALANCE = 0;
+	
+	const MyString type1 = "Open";
+	const MyString type2 = "Close";
+	const MyString type3 = "Change";
+	const MyString approvedChange = "(approved)";
 }
 
 class Employee :public User {

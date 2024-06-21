@@ -14,6 +14,10 @@ double Account::getBalance() const {
 	return balance;
 }
 
+void Account::printAccount() const {
+	std::cout << "* " << accountNumber << std::endl;
+}
+
 void Account::setAccountNumber(size_t accountNumber) {
 	if (accountNumber < NULL_VALUE) {
 		throw std::out_of_range("Account Number cannot be bellow zero");
@@ -26,10 +30,6 @@ void Account::setBalance(double balance) {
 		throw std::out_of_range("Balance cannot be bellow zero");
 	}
 	this->balance = balance;
-}
-
-void Account::printAccount() const {
-	std::cout << "* " << accountNumber << std::endl;
 }
 
 void Account::writeToFile(std::ofstream& ofs) const {

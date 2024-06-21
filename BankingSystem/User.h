@@ -7,14 +7,6 @@ namespace UserData{
 	const size_t MAX_AGE = 100;
 }
 
-namespace {
-	const MyString type1 = "Open";
-	const MyString type2 = "Close";
-	const MyString type3 = "Change";
-	const MyString approvedChange = "(approved)";
-
-}
-
 class User {
 protected:
 	MyString firstName = "Unknown";

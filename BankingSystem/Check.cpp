@@ -1,8 +1,16 @@
 #include "Check.h"
 
-Check::Check(const MyString& code,double sum) {
+Check::Check(const MyString& code, double sum) {
 	this->code = code;
 	setSum(sum);
+}
+
+double Check::getSum() const {
+	return sum;
+}
+
+const MyString& Check::getCode() const {
+	return code;
 }
 
 void Check::setSum(double sum) {
@@ -15,14 +23,6 @@ void Check::setSum(double sum) {
 
 void Check::setCode(const MyString& code) {
 	this->code = code;
-}
-
-double Check::getSum() const {
-	return sum;
-}
-
-const MyString& Check::getCode() const {
-	return code;
 }
 
 void Check::writeToFile(std::ofstream& ofs) const {

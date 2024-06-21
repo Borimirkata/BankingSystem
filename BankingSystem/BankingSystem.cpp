@@ -1,31 +1,14 @@
 #include "BankingSystem.h"
 
-void BankingSystem::createBank(const MyString& bankName) {
-	banks.push_back(Bank(bankName));
-}
-
-Bank* BankingSystem::getBankByName(const MyString& bankName)
-{
-	int index = -1;
-	size_t banksCount = banks.getSize();
-
-	for (size_t i = 0; i < banksCount; i++) {
-		if ((banks[i].getBankName() == bankName)) {
-			return &banks[i];
-		}
-	}
-	return nullptr;
-}
-
 bool BankingSystem::isUniquePerson(const MyString& firstName, const MyString& secondName, const MyString& egn) const {
 	size_t clientsCount = clients.getSize();
 	for (size_t i = 0; i < clientsCount; i++) {
-		if ((clients[i].getFirstName() == firstName && clients[i].getSecondName() == secondName) || (clients[i].getEgn()==egn)) {
+		if ((clients[i].getFirstName() == firstName && clients[i].getSecondName() == secondName) || (clients[i].getEgn() == egn)) {
 			return false;
 		}
 	}
 
-	size_t employeesCount =employees.getSize();
+	size_t employeesCount = employees.getSize();
 	for (size_t i = 0; i < employeesCount; i++) {
 		if ((employees[i].getFirstName() == firstName && employees[i].getSecondName() == secondName) || (employees[i].getEgn() == egn)) {
 			return false;
@@ -146,6 +129,23 @@ void BankingSystem::login(const MyString& firstName, const MyString& secondName,
 	else if (type == Roles::thirdParty) {
 		currentThirdParty = &thirdPartyEmployees[index];
 	}
+}
+
+void BankingSystem::createBank(const MyString& bankName) {
+	banks.push_back(Bank(bankName));
+}
+
+Bank* BankingSystem::getBankByName(const MyString& bankName)
+{
+	int index = -1;
+	size_t banksCount = banks.getSize();
+
+	for (size_t i = 0; i < banksCount; i++) {
+		if ((banks[i].getBankName() == bankName)) {
+			return &banks[i];
+		}
+	}
+	return nullptr;
 }
 
 void BankingSystem::clientCheckAvl(const MyString& bankName, size_t accountNumber) const {
@@ -287,7 +287,7 @@ void BankingSystem::exit() {
 	}
 }
 
-void BankingSystem::quit() {
+void BankingSystem::quit() const {
 	if (currentClient != nullptr || currentEmployee != nullptr || currentThirdParty != nullptr) {
 		throw std::exception("One account is still logged in!!!");
 	}
