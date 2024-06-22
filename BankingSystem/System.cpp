@@ -118,7 +118,6 @@ void run() {
 			std::cin >> idx;
 			std::cin.ignore();
 			char buff[1024];
-			std::cin.ignore();
 			std::cin.getline(buff, 1024);
 			MyString content = buff;
 			idx--;

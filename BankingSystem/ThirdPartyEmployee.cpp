@@ -90,3 +90,10 @@ void ThirdPartyEmployee::writeToFile(std::ofstream& ofs) const {
 void ThirdPartyEmployee::readFromFile(std::ifstream& ifs) {
 	User::readFromFile(ifs);
 }
+
+ThirdPartyEmployee::~ThirdPartyEmployee() {
+	size_t banksCount = banks.getSize();
+	for (size_t i = 0; i < banksCount; i++) {
+		banks[i] = nullptr;
+	}
+}

@@ -170,6 +170,5 @@ void Employee::readFromFile(std::ifstream& ifs) {
 }
 
 Employee::~Employee() {
-	delete bank;
 	bank = nullptr;
 }

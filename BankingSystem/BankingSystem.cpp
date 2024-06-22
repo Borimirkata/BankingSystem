@@ -287,10 +287,10 @@ void BankingSystem::exit() {
 	}
 }
 
-void BankingSystem::quit() const {
-	if (currentClient != nullptr || currentEmployee != nullptr || currentThirdParty != nullptr) {
-		throw std::exception("One account is still logged in!!!");
-	}
+void BankingSystem::quit() {
+	currentClient = nullptr;
+	currentEmployee = nullptr;
+	currentThirdParty = nullptr;
 }
 
 void BankingSystem::writeToFile() const {
@@ -371,6 +371,12 @@ void BankingSystem::readFromFile() {
 
 BankingSystem::~BankingSystem() {
 	writeToFile();
+
+	banks.clear();
+	clients.clear();
+	employees.clear();
+	thirdPartyEmployees.clear();
+
 	delete currentClient;
 	delete currentEmployee;
 	delete currentThirdParty;

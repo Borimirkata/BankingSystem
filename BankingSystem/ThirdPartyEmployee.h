@@ -35,5 +35,5 @@ public:
 	void writeToFile(std::ofstream& ofs) const;
 	void readFromFile(std::ifstream& ifs);
 
-	~ThirdPartyEmployee() = default;
+	~ThirdPartyEmployee();
 };

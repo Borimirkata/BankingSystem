@@ -206,3 +206,9 @@ void Client::readFromFile(std::ifstream& ifs) {
 	}
 }
 
+Client::~Client() {
+	size_t banksCount = banks.getSize();
+	for (size_t i = 0; i < banksCount; i++) {
+		banks[i] = nullptr;
+	}
+}
