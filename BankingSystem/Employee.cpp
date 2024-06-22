@@ -163,9 +163,10 @@ void Employee::readFromFile(std::ifstream& ifs) {
 	ifs.read((char*)&taskCount, sizeof(size_t));
 
 	for (size_t i = 0; i < taskCount; i++) {
-		Request* taskToRead=nullptr;
-		taskToRead->readFromFile(ifs);
-		tasks.push_back(taskToRead);
+		Request taskToRead;
+		taskToRead.readFromFile(ifs);
+		Request* task = &taskToRead;
+		tasks.push_back(task);
 	}
 }
 

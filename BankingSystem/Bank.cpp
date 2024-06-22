@@ -247,16 +247,18 @@ void Bank::readFromFile(std::ifstream& ifs) {
 	size_t clientsSize = 0;
 	ifs.read((char*)&clientsSize, sizeof(size_t));
 	for (size_t i = 0; i < clientsSize; i++) {
-		Client* clientToRead=nullptr;
-		clientToRead->readFromFile(ifs);
-		clients.push_back(clientToRead);
+		Client clientToRead;
+		clientToRead.readFromFile(ifs);
+		Client* client = &clientToRead;
+		clients.push_back(client);
 	}
 
 	size_t employeesSize = 0;
 	ifs.read((char*)&employeesSize, sizeof(size_t));
 	for (size_t i = 0; i < employeesSize; i++) {
-		Employee* employeeToRead = nullptr;
-		employeeToRead->readFromFile(ifs);
-		employees.push_back(employeeToRead);
+		Employee employeeToRead;
+		employeeToRead.readFromFile(ifs);
+		Employee* employee = &employeeToRead;
+		employees.push_back(employee);
 	}
 }
