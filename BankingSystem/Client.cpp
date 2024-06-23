@@ -53,6 +53,7 @@ void Client::receiveCheck(const Check& check) {
 
 void Client::addBank(Bank* bank) {
 	banks.push_back(bank);
+	bank->addClient(this);
 }
 
 void Client::check_avl(const MyString& bankName, size_t accountNumber) const {

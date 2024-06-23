@@ -84,7 +84,6 @@ void ThirdPartyEmployee::exit() const {
 
 void ThirdPartyEmployee::writeToFile(std::ofstream& ofs) const {
 	User::writeToFile(ofs);
-
 }
 
 void ThirdPartyEmployee::readFromFile(std::ifstream& ifs) {

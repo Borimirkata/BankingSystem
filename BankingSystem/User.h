@@ -8,7 +8,7 @@ namespace UserData{
 }
 
 class User {
-protected:
+private:
 	MyString firstName = "Unknown";
 	MyString secondName = "Unknown";
 	MyString egn = "N/A";

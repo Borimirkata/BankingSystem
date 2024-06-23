@@ -2,6 +2,7 @@
 #include "System.h"
 #include "BankingSystem.h"
 
+
 int main() {
 	try {
 		run();
@@ -12,7 +13,8 @@ int main() {
 	}
 	catch (...)
 	{
-		std::cout << "Invalid argument given" << std::endl;
+		std::cout << "invalid argument given" << std::endl;
 	}
+
 	return 0;
 }

@@ -84,7 +84,6 @@ void BankingSystem::signup(const MyString& firstName, const MyString& secondName
 		Client* currClient = &clients[index];
 		for (int i = 0; i < banks.getSize(); i++) {
 			currClient->addBank(this->getBankByName(banks[i].getBankName()));
-			banks[i].addClient(currClient);
 		}
 	}
 	else if (role == Roles::employee) {
@@ -103,8 +102,9 @@ void BankingSystem::signup(const MyString& firstName, const MyString& secondName
 	else if (role == Roles::thirdParty) {
 		thirdPartyEmployees.push_back(ThirdPartyEmployee(firstName, secondName, egn, age, role, password));
 		size_t index = thirdPartyEmployees.getSize() - 1;
+		ThirdPartyEmployee* currEmployee = &thirdPartyEmployees[index];
 		for (int i = 0; i < banks.getSize(); i++) {
-			thirdPartyEmployees[index].addBank(this->getBankByName(banks[i].getBankName()));
+			currEmployee->addBank(this->getBankByName(banks[i].getBankName()));
 		}
 	}
 	else {

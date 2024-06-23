@@ -177,6 +177,9 @@ MyVector<Employee*>& Bank::getEmployees() {
 
 Client* Bank::getClient(const MyString& egn) {
 	int index = getClientIdx(egn);
+	if (index == -1) {
+		throw std::exception("No client found");
+	}
 
 	return clients[index];
 }
